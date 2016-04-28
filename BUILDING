@@ -1,0 +1,24 @@
+Prerequisites:
+	* Visual studio 2010 (to build in windows)
+	* Gcc 2.96 (to build in linux)
+
+The project is configured to have a "vc" folder in the same level as thde solution 
+folder (with the folders dll, include, and lib) with the dependencies.
+
+Dependencies:
+	* Boost Test Library
+	* libxml2  library
+
+
+
+Building using itself:
+	./vsmake vsmake.sln
+
+Building using make:
+	make
+	make install
+
+
+More info:
+	docs/building.html
+
