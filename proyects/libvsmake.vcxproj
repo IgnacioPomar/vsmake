@@ -15,6 +15,8 @@
     <ClCompile Include="..\src\project.cpp" />
     <ClCompile Include="..\src\solution.cpp" />
     <ClCompile Include="..\src\solutionLoader.cpp" />
+    <ClCompile Include="..\src\stackoverflowcode.cpp" />
+    <ClCompile Include="..\src\winutils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\project.h" />
@@ -22,6 +24,7 @@
     <ClInclude Include="..\include\solution.h" />
     <ClInclude Include="..\include\solutionLoader.h" />
     <ClInclude Include="..\include\solution_privatedata.h" />
+    <ClInclude Include="..\include\utils.h" />
     <ClInclude Include="..\include\vsmake.h" />
     <ClInclude Include="..\include\vsmake_cfg.h" />
     <ClInclude Include="..\include\vsmake_constants.h" />

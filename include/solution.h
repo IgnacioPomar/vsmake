@@ -5,6 +5,10 @@
  *	Copyright	(C) 2016 Ignacio Pomar Ballestero
  ********************************************************************************************/
 
+#pragma once
+#ifndef _SOLUTION_H_
+#define _SOLUTION_H_
+
 
 #include <string>
 
@@ -31,4 +35,6 @@ protected:
 private:
 	int solutionFormatVersion;
 };
+
+#endif //_SOLUTION_H_
 

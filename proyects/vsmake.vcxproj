@@ -88,9 +88,10 @@
     <ClCompile Include="..\src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\BUILDING.txt" />
-    <None Include="..\LICENSE.txt" />
-    <None Include="..\README.txt" />
+    <None Include="..\BUILDING" />
+    <None Include="..\LICENSE" />
+    <None Include="..\Makefile" />
+    <None Include="..\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

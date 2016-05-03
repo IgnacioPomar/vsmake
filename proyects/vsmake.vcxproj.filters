@@ -20,8 +20,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\BUILDING.txt" />
-    <None Include="..\README.txt" />
-    <None Include="..\LICENSE.txt" />
+    <None Include="..\BUILDING" />
+    <None Include="..\LICENSE" />
+    <None Include="..\Makefile" />
+    <None Include="..\README.md" />
   </ItemGroup>
 </Project>

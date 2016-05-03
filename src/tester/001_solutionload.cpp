@@ -18,4 +18,7 @@ BOOST_AUTO_TEST_CASE (solutionLoad)
 	BOOST_CHECK_EQUAL (sol.loadSolution("../include/vsmake.h"), VSMAKE_SOLUTION_FILE_BAD_FORMAT);
 	BOOST_CHECK_EQUAL (sol.loadSolution("../vsmake.sln"), VSMAKE_ALL_OK);
 
+	//TODO: Must check the results...
+
+
 }

@@ -16,6 +16,7 @@
 
 //PIMPL classes
 class Solution;
+class Project;
 
 
 // Evitamos incluir cabeceras de libxml2
@@ -29,7 +30,8 @@ class VSMAKE_LOCAL SolutionLoader
 private:
 	static VsMakeErrorCode parseSolutionFile (FILE * solutionFile, Solution & solution);
 public:
-	static VsMakeErrorCode loadSolution (char *solutionPath, Solution & solution);
+	static VsMakeErrorCode loadSolution (const char *solutionPath, Solution & solution);
+	static VsMakeErrorCode loadProject  (const char *projectPath, Project & project);
 };
 
 #endif //_VSMAKE_SOLUTION_LOADER_H_
