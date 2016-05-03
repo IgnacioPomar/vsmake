@@ -20,11 +20,9 @@ char *dirname(const char *path)
 {
 	char drive[_MAX_DRIVE];
 	char dir[_MAX_DIR];
-	char fname[_MAX_FNAME];
-	char ext[_MAX_EXT];
 
 
-	_splitpath (path, drive, dir, fname, ext);
+	_splitpath (path, drive, dir, NULL, NULL);
 	_makepath (dirname_buffer, drive, dir, NULL, NULL );
 	
 	return dirname_buffer;
