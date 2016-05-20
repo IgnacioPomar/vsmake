@@ -6,8 +6,6 @@
  ********************************************************************************************/
 
 
-
-
 //Documentation about MSBuild.exe
 // https://msdn.microsoft.com/es-es/library/ms164311.aspx
 
@@ -22,8 +20,6 @@
  */
 
 
-#include <stdio.h>
-
 #ifdef _DEBUG 
 	#define END_LIB_STD "d.lib"
 #else
@@ -31,12 +27,18 @@
 #endif
 
 
+#ifdef WIN32
 // Libraries the project needs
 #pragma comment(lib, "libvsmake" END_LIB_STD)
+#endif
 
+#include <stdio.h>
 
 
 int main (int argc, char * argv []) 
 {
+	
+
+
 	return 1;
 }

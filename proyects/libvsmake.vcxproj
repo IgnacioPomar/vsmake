@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\dllmain.cpp" />
+    <ClCompile Include="..\src\parsepragmalib.cpp" />
     <ClCompile Include="..\src\project.cpp" />
     <ClCompile Include="..\src\solution.cpp" />
     <ClCompile Include="..\src\solutionLoader.cpp" />
@@ -19,6 +20,7 @@
     <ClCompile Include="..\src\winutils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\parsepragmalib.h" />
     <ClInclude Include="..\include\project.h" />
     <ClInclude Include="..\include\project_privatedata.h" />
     <ClInclude Include="..\include\solution.h" />

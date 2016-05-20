@@ -2,7 +2,7 @@
  *	Name		: winutils.cpp
  *	Description	: Windows functions to replace instead of unix equivalents
  *  License     : MIT License (see LICENSE.txt)
- *	Copyright	(C) 2016 Ignacio Pomar Ballestero
+ *	Copyright	- Taken from public domain
  ********************************************************************************************/
 #pragma once //to avoid intellisesse warning
 #ifdef WIN32

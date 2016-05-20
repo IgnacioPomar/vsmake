@@ -7,6 +7,8 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h> 
+
 #include "utils.h"
 #include "solution.h"
 #include "solution_privatedata.h"
@@ -14,6 +16,8 @@
 #include "project_privatedata.h"
 #include "solutionLoader.h"
 
+
+//--------------  local defines  --------------
 
 #define MAX_BUFF_SIZE	1024
 
@@ -46,6 +50,8 @@ int parseSolutionFormatVersion (char * versionLine);
 
 
 
+//--------------------  Solution Load  --------------------
+
 /***********************************************************************************************
  * Parses the solution file
  * \param    [in]   solutionFile   Opened file of the solution
@@ -60,9 +66,7 @@ VsMakeErrorCode SolutionLoader::parseSolutionFile (FILE * solutionFile, Solution
 
 	Project currentProject; //if we are reading a project, we will use this var
 	
-
 	//The solution file in VS2010 and vs2015 have the same format
-
 	while ((retVal == VSMAKE_NOT_SET) && ((fgets (line, MAX_BUFF_SIZE, solutionFile)) != NULL))
 	{
 		switch (nextsolutionFileState)
@@ -200,7 +204,7 @@ VsMakeErrorCode SolutionLoader::loadSolution (const char *solutionPath, Solution
 	}
 	else
 	{
-		char solutionFullPath [1024];
+		char solutionFullPath [MAX_BUFF_SIZE];
 		realpath (solutionPath, solutionFullPath);
 		solution.pd->solutionPath = dirname (solutionFullPath);
 		
@@ -212,6 +216,8 @@ VsMakeErrorCode SolutionLoader::loadSolution (const char *solutionPath, Solution
 
 
 
+//-------------------- Load Project --------------------
+
 /***********************************************************************************************
  * Load a Visual studio solution
  * \param    [in]   solutionPath   Full path of the solution file
@@ -221,8 +227,8 @@ VsMakeErrorCode SolutionLoader::loadSolution (const char *solutionPath, Solution
 VsMakeErrorCode SolutionLoader::loadProject  (const char *projectPath, Project & project)
 {
 
-	//return VSMAKE_ALL_OK;
-	return VSMAKE_NOT_IMPLEMENTED;
+	return VSMAKE_ALL_OK;
+	//return VSMAKE_NOT_IMPLEMENTED;
 }
 
 

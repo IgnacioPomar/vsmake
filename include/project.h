@@ -19,6 +19,7 @@ class Project_PrivateData; //PIMPL
 class VSMAKE_API Project
 {
 	friend class SolutionLoader;
+	friend class Solution;
 public:
 	Project ();
 	Project (const Project & project);

@@ -21,5 +21,8 @@
     <ClCompile Include="..\src\tester\001_solutionload.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\tester\002_parsepragmalib.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

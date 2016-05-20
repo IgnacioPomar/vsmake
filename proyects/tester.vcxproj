@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\tester\001_solutionload.cpp" />
+    <ClCompile Include="..\src\tester\002_parsepragmalib.cpp" />
     <ClCompile Include="..\src\tester\maintester.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

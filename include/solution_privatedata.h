@@ -10,7 +10,8 @@
 #ifndef _SOLUTION_PRIVATEDATA_H_
 #define _SOLUTION_PRIVATEDATA_H_
 
-#include <list>
+#include <vector>
+#include <string>
 #include "vsmake_cfg.h"
 #include "project.h"
 
@@ -19,7 +20,7 @@ class VSMAKE_LOCAL Solution_PrivateData
 {
 public:
 	std::string solutionPath;
-	std::list <Project> projects;
+	std::vector <Project> projects;
 };
 
 #endif //_SOLUTION_PRIVATEDATA_H_

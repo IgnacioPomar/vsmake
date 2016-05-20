@@ -11,6 +11,7 @@
 
 
 #include <list>
+#include <string>
 #include "vsmake_cfg.h"
 
 

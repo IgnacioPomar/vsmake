@@ -18,7 +18,7 @@
 
 //PIMPL clases
 class Solution_PrivateData; 
-
+class Project;
 
 class VSMAKE_API Solution
 {
@@ -29,9 +29,11 @@ public:
 	~Solution ();
 
 	VsMakeErrorCode loadSolution (char * solutionFile);
+	int getNumberOfProjects ();
+	Project* getProject (int projectIdx);
+	Project* getProject (char *  projectName);
 protected:
 	Solution_PrivateData * pd;
-
 private:
 	int solutionFormatVersion;
 };
