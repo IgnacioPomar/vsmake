@@ -16,9 +16,11 @@
 #include <map>
 #include <vector>
 
-
-//If second is 1, then first must exist
-typedef std::pair <std::string, unsigned char> macroCondition;
+typedef struct _MacroLevelStat 
+{
+	bool isActiveCode; 
+	bool wasMacroIfActived;
+} MacroLevelStat;
 
 //To allow the tester have access the class data
 class VSMAKE_LOCAL ParsePragmaLibData
@@ -26,12 +28,11 @@ class VSMAKE_LOCAL ParsePragmaLibData
 protected:
 	bool isBlockComment;			///<  if we are inside a block comment
 	bool isActiveCode;				///<  if the current code is active
-	bool isInsideMacroCondition;	///<  if we are inside a MacroCondition
+	bool wasMacroIfActived;			///<  if the if macro was active sometime
 	
-	std::vector <bool>                  macroLevelStatus;
+	std::vector <MacroLevelStat>        macroLevelStatus;
 
 	std::map <std::string,std::string>  defines;
-	std::vector <macroCondition>        macroConditions;
 	std::vector <std::string>           pragmaLibs;
 };
 
@@ -49,6 +50,10 @@ private:
 	void parsePragmaComment             (std::string line);
 	void parseConditionalDirectives     (std::string line);
 	std::string removeQuotes            (std::string line);
+	bool isPositiveCondition			(std::string condition);
+	bool isDefined          			(std::string define);
+	void addMacroLevel                  (bool newStatus);
+	bool isWordCharSeparator            (char c);
 	
 public:
 	ParsePragmaLib ();

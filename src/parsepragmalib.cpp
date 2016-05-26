@@ -19,9 +19,8 @@
  */
 ParsePragmaLib::ParsePragmaLib ()
 {
-	isInsideMacroCondition = false;
 	isBlockComment = false;
-	isActiveCode = true;
+	wasMacroIfActived = isActiveCode = true;
 }
 
 /**
@@ -80,14 +79,36 @@ std::string ParsePragmaLib::cleanComments (std::string line)
 }
 
 
+
+/**
+ * Check if the char is a word separator char
+ * \param [in]   c  the char we want to check
+ * \return true if is a separator char
+ */
+bool ParsePragmaLib::isWordCharSeparator (char c)
+{
+	switch (c)
+	{
+	case ' ':
+	case '"':
+	case '(':
+	case ')':
+	case '\t':
+	case '\'':
+		return true;
+		break;		
+	default:
+		return false;
+	}
+}
+
 /**
  * Swap the values by its defined value. if there are strings delimited by "", it will join them
  * \param [in]   line  the line we are parsing
  * \return The line with only valid code.
  */
-//TODO: check if the macro is inside quotes
-//TODO: we should check if the macro is more than one time in the line (do wlie instead of if)
-//TODO: ¿check quotes when joining with another one? (currently we are removing them in addDefine)
+//YAGNI: check if the macro is inside quotes
+//YAGNI: ¿check quotes when joining with another one? (currently we are removing them in addDefine)
 std::string ParsePragmaLib::replaceDefines (std::string line)
 {
 	//Considering only one preproccesor directive per line
@@ -105,30 +126,31 @@ std::string ParsePragmaLib::replaceDefines (std::string line)
 			size_t replacePos;
 
 			//check if isnt a part of a bigger word
-			//TODO: we should recheck if the macro is in the string later... maybe it will resolve itself when checking if there is more than one
-			if ((macroPos != 0) && 
-				!((preProcessedLine [macroPos - 1] == ' ') || (preProcessedLine [macroPos - 1] == '"'))
-			   ) continue;
-			if (macroPos != line.length () - iter->first.length())
-			{
-				//BUG: Repasar la condición final, no va con END_LIB
-				size_t endPos = macroPos + iter->first.length();
-				if (!((preProcessedLine [endPos] == ' ') || (preProcessedLine [endPos] == '"')))
-					continue;
-			}
+			if ((macroPos != 0) && (!isWordCharSeparator (preProcessedLine [macroPos - 1])))
+			    continue; //Something in the left side, isnt a macro
+			size_t endPos = macroPos + iter->first.length() - 1;
+			if ((endPos != preProcessedLine.length ()) && 
+				(!isWordCharSeparator (preProcessedLine [endPos + 1])))
+				continue; //Something in the right side, isnt a macro
+	
 
-			//check next limit
-			size_t nextLimit = preProcessedLine.find_first_not_of (' ', macroPos + iter->first.length());
-			if ((nextLimit != std::string::npos) && (preProcessedLine [nextLimit] == '"'))
+			//Find the fusion limit in the right
+			size_t nextLimit = preProcessedLine.find_first_not_of (" \t", endPos + 1);
+			if (nextLimit != std::string::npos)
 			{
-				replaceLen = nextLimit - macroPos + 1;
+				if (preProcessedLine [nextLimit] == '"') 
+					nextLimit++;//If there is a quote, we will fuson it
+					
+				replaceLen = nextLimit - macroPos;
 			}
 			else replaceLen = iter->first.length();
 
-			//check previous limit
-			size_t prevoiusLimit = preProcessedLine.find_last_not_of (' ', macroPos - 1);
-			if ((prevoiusLimit != std::string::npos) && (preProcessedLine [prevoiusLimit] == '"'))
+			//Find the fusion limit in the left
+			size_t prevoiusLimit = preProcessedLine.find_last_not_of (" \t", macroPos - 1);
+			if (prevoiusLimit != std::string::npos)
 			{
+				if (preProcessedLine [prevoiusLimit] != '"')
+					prevoiusLimit++;
 				replacePos = prevoiusLimit;
 				replaceLen+= macroPos - prevoiusLimit;
 			}
@@ -136,26 +158,30 @@ std::string ParsePragmaLib::replaceDefines (std::string line)
 
 			//finally... replace
 			preProcessedLine.replace (replacePos, replaceLen, iter->second);
+
+			//TODO: check if there are more ocurrences
+			//macroPos = preProcessedLine.find (iter->first, macroPos + 1);
 		}
 	}
 
 	return preProcessedLine;
 }
 
-/*
-"#elif "
-"#else"
-"#endif"
-*/
 
 
+/**
+ * Cleans the conditional position leaving only the condition
+ * \param [in]   line                     the line we are parsing
+ * \param [in]   conditionarDirectivePos  Position containing the conditional directctive
+ * \return The line with only valid code.
+ */
 std::string ParsePragmaLib::cleanMacroCondition   (std::string line, size_t conditionarDirectivePos)
 {
 	size_t requiredDefinePos;
 
 	//find condition start position
 	requiredDefinePos = line.find_first_of (" ", conditionarDirectivePos);
-	requiredDefinePos = line.find_first_of (" ", requiredDefinePos);
+	requiredDefinePos = line.find_first_not_of (" ", requiredDefinePos);
 	
 	//trim
 	std::string condition = line.substr (requiredDefinePos);
@@ -164,69 +190,118 @@ std::string ParsePragmaLib::cleanMacroCondition   (std::string line, size_t cond
 	return condition;
 }
 
-//TODO: WORKING HERE
+
+/**
+ * Check if the condition is valid
+ * \param [in]   condition   Condition to check
+ * \return True if the condition is valid
+ */
+bool ParsePragmaLib::isPositiveCondition (std::string condition)
+{
+	//YAGNI?: Evaluate complex conditions, for example, the defined directive
+	if (atoi(condition.c_str ()))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
+/**
+ * Check if the define exists
+ * \param [in]   define   define to check
+ * \return True if the define exists
+ */
+bool ParsePragmaLib::isDefined (std::string define)
+{
+	return (defines.find(define) != defines.end());
+}
+
+
+/**
+ * Takes the current level and stores it before changing the new level
+ * \param [in]   newStatus   Status of isActiveCode of the new block 
+ */
+void ParsePragmaLib::addMacroLevel (bool newStatus)
+{
+	MacroLevelStat ml;
+	ml.isActiveCode = isActiveCode;
+	ml.wasMacroIfActived = wasMacroIfActived;
+	macroLevelStatus.push_back (ml);
+	if (isActiveCode)
+	{
+		wasMacroIfActived = isActiveCode = newStatus;
+	}
+	else //If the parent was disabled... then the childs cant get enabled
+	{
+		isActiveCode = false;
+		wasMacroIfActived = true;
+	}
+}
+
+
+/**
+ * Check if in the line we have a conditional directives, and if we have one it is evaluated
+ * \param [in]  line   the line we must process
+ */
 void  ParsePragmaLib::parseConditionalDirectives (std::string line)
 {
 	size_t conditionarDirectivePos;
 
-	if (isInsideMacroCondition)
+	if (std::string::npos != (conditionarDirectivePos = line.find ("#if ")))
 	{
-		//we can only change the flow if we have an else or an end statement
+		std::string condition = cleanMacroCondition (line, conditionarDirectivePos);
+		addMacroLevel (isPositiveCondition (condition));
 	}
-	else 
+	else if (std::string::npos != (conditionarDirectivePos = line.find ("#ifdef ")))
 	{
-		bool isPositiveCondition = true;
-		bool isDefineCondition = false;
-
-		if (std::string::npos != (conditionarDirectivePos = line.find ("#if ")))
+		std::string define = cleanMacroCondition (line, conditionarDirectivePos);
+		addMacroLevel (isDefined (define));
+	}
+	else if (std::string::npos != (conditionarDirectivePos = line.find ("#ifndef ")))
+	{
+		std::string define = cleanMacroCondition (line, conditionarDirectivePos);
+		addMacroLevel (!isDefined (define));
+	}
+	else if (std::string::npos != (conditionarDirectivePos = line.find ("#else")))
+	{
+		//YAGNI: Check if we are inside a condition
+		if (isActiveCode)
 		{
-			//TODO: Make a function to evaluate complex conditions
-			isInsideMacroCondition = true;
-			macroLevelStatus.push_back (isActiveCode);
+			isActiveCode = false;
+		}
+		else if (!wasMacroIfActived)
+		{
+			isActiveCode = wasMacroIfActived = true;
+		}
+	}
+	else if (std::string::npos != (conditionarDirectivePos = line.find ("#elif ")))
+	{
+		//YAGNI: Check if we are inside a condition
+		if (isActiveCode)
+		{
+			isActiveCode = false;
+		}
+		else if (!wasMacroIfActived)
+		{
 			std::string condition = cleanMacroCondition (line, conditionarDirectivePos);
-
-			if (atoi(condition.c_str ()))
+			if (isPositiveCondition (condition))
 			{
-				isActiveCode = true;
-			}
-			else
-			{
-				isActiveCode = false;
-			}
-		}
-		else if (std::string::npos != (conditionarDirectivePos = line.find ("#ifdef ")))
-		{
-			isDefineCondition = true;
-		}
-		else if (std::string::npos != (conditionarDirectivePos = line.find ("#ifndef ")))
-		{
-			isPositiveCondition = false;
-			isDefineCondition = true;
-		}
-
-
-		if (isDefineCondition) //we are inside #ifdef or ifndef
-		{
-			std::string requiredDefine = cleanMacroCondition (line, conditionarDirectivePos);
-
-			macroLevelStatus.push_back (isActiveCode);
-			isInsideMacroCondition = true;
-			
-			if (((defines.find(requiredDefine) == defines.end()) && isPositiveCondition) ||  //#ifdef
-				(defines.find(requiredDefine) != defines.end()) //#ifndef
-		       )
-			{
-				isActiveCode = false;
-			}
-			else
-			{
-				isActiveCode = true;
+				isActiveCode = wasMacroIfActived = true;
 			}
 		}
 	}
-		
-	
-	//bool isActiveCode;
+	else if (std::string::npos != (conditionarDirectivePos = line.find ("#endif")))
+	{
+		//YAGNI: Check if we are inside a condition
+		MacroLevelStat ml = macroLevelStatus.back ();
+		macroLevelStatus.pop_back ();
+		isActiveCode = ml.isActiveCode;
+		wasMacroIfActived = ml.wasMacroIfActived;
+	}
 }
 
 /**
@@ -339,7 +414,8 @@ std::string ParsePragmaLib::removeQuotes (std::string line)
  */
 void ParsePragmaLib::parsePragmaComment (std::string line)
 {
-	//we dont check if the sintax is correct
+	//YAGNI: we dont check if the sintax is correct
+	//BUG: Corta si no hay comillas la libreria
 	size_t pragmaPos;
 	if (std::string::npos != (pragmaPos = line.find ("#pragma ")))
 	{
@@ -352,7 +428,7 @@ void ParsePragmaLib::parsePragmaComment (std::string line)
 
 				pragmaPos = line.find (",", pragmaPos + 1) + 1;
 				parenthesesPos = line.find (")", pragmaPos);
-				lib = removeQuotes (line.substr (pragmaPos,  parenthesesPos - pragmaPos - 1));
+				lib = removeQuotes (line.substr (pragmaPos,  parenthesesPos - pragmaPos));
 				pragmaLibs.push_back (lib);
 			} //lib
 		}//comment
