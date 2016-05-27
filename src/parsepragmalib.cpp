@@ -32,7 +32,6 @@ ParsePragmaLib::ParsePragmaLib ()
 std::string ParsePragmaLib::cleanComments (std::string line)
 {
 	std::string cleanLine = line;
-	size_t endCommentBlock = std::string::npos;
 	size_t startCommentBlock = cleanLine.find ("/*");
 
 	//Check if we hace previous comment

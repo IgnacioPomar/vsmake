@@ -7,9 +7,7 @@
 
 //If we have no header outside the #ifdef block, the intellisense will give the following error:
 //IntelliSense: PCH warning: Can not find a suitable header stop location. A PCH file wasn't generated.
-#pragma once
-
-
+#include <stdio.h>
 #if defined _WIN32 && !defined _WIN32_WCE
 
 #include <windows.h>

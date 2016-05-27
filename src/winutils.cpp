@@ -4,10 +4,12 @@
  *  License     : MIT License (see LICENSE.txt)
  *	Copyright	- Taken from public domain
  ********************************************************************************************/
-#pragma once //to avoid intellisesse warning
+
+
+#include <stdlib.h> //Outside ifdef to avoid intellisense errors
+
 #ifdef WIN32
 
-#include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
 
