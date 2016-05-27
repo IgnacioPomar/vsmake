@@ -9,6 +9,10 @@
 #include <stdio.h>
 #include <stdlib.h> 
 
+#ifndef WIN32
+#include <libgen.h>
+#endif
+
 #include "utils.h"
 #include "solution.h"
 #include "solution_privatedata.h"

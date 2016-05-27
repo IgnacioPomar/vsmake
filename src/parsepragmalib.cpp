@@ -4,7 +4,7 @@
  * License     : MIT License (see LICENSE.txt)
  * Description : The parser itself
  ********************************************************************/
-
+#include <stdlib.h>
 #include <iostream>
 #include <fstream>
 
