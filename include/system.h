@@ -1,8 +1,5 @@
 /*********************************************************************************************
  *	Name        : system.h
- *  Copyright	(C) 2016 Ignacio Pomar Ballestero
- *  License     : MIT License (see LICENSE.txt)
- *  Description : Calls to the system
  ********************************************************************************************/
 
 #include "vsmake_cfg.h"

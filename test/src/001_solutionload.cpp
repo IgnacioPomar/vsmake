@@ -1,7 +1,5 @@
 /*********************************************************************************************
  *	Name        : 001_solutionload.cpp
- *  Copyright	(C) 2016 Ignacio Pomar Ballestero
- *  License     : MIT License (see LICENSE.txt)
  *  Description : Unit test to check the correct load of the solution
  ********************************************************************************************/
 

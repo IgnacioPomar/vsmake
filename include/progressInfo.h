@@ -1,7 +1,5 @@
 /********************************************************************
  * Name        : progressInfo.h
- * Copyright	(C) 2016 Ignacio Pomar Ballestero
- * License     : MIT License (see LICENSE.txt)
  * Description : show in console the progress status
  ********************************************************************/
 

@@ -1,7 +1,5 @@
 /*********************************************************************************************
  *	Name        : 003_displaytest.cpp
- *  Copyright	(C) 2016 Ignacio Pomar Ballestero
- *  License     : MIT License (see LICENSE.txt)
  *  Description : this will test the console output
  ********************************************************************************************/
 

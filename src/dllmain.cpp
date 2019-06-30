@@ -1,8 +1,6 @@
 /*********************************************************************************************
  *	Name		: dllmain.c
  *	Description	: File only for windows. Only contains the dllmain
- *  License     : MIT License (see LICENSE.txt)
- *	Copyright	(C) 2016 Ignacio Pomar Ballestero
  ********************************************************************************************/
 
 //If we have no header outside the #ifdef block, the intellisense will give the following error:

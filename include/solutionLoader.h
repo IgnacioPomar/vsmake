@@ -1,8 +1,6 @@
 /*********************************************************************************************
  *	Name		: solutionLoader.cpp
  *	Description	: Loads the solution file to memory
- *  License     : MIT License (see LICENSE.txt)
- *	Copyright	(C) 2016 Ignacio Pomar Ballestero
  ********************************************************************************************/
 
 

@@ -1,8 +1,6 @@
 /*********************************************************************************************
  *	Name		: solution.cpp
  *	Description	: 
- *  License     : MIT License (see LICENSE.txt)
- *	Copyright	(C) 2016 Ignacio Pomar Ballestero
  ********************************************************************************************/
 
 #include "solution.h"

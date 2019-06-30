@@ -1,8 +1,6 @@
 /*********************************************************************************************
  *	Name		: vsmake_constants.h
  *	Description	: Enums used alongside this libary
- *  License     : MIT License (see LICENSE.txt)
- *	Copyright	(C) 2016 Ignacio Pomar Ballestero
  ********************************************************************************************/
 
 #pragma once

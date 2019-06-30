@@ -1,7 +1,5 @@
 ﻿/********************************************************************
  * Name        : parsepragmalib.h
- * Copyright	(C) 2016 Ignacio Pomar Ballestero
- * License     : MIT License (see LICENSE.txt)
  * Description : The parser itself
  ********************************************************************/
 #include <stdlib.h>

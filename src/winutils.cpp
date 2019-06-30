@@ -1,7 +1,6 @@
 /*********************************************************************************************
  *	Name		: winutils.cpp
  *	Description	: Windows functions to replace instead of unix equivalents
- *  License     : MIT License (see LICENSE.txt)
  *	Copyright	- Taken from public domain
  ********************************************************************************************/
 

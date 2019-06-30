@@ -1,8 +1,6 @@
 /*********************************************************************************************
  *	Name		: vsmake_pragmalib.h
  *	Description	: header with the libs used in this project
- *  License     : MIT License (see LICENSE.txt)
- *	Copyright	(C) 2016 Ignacio Pomar Ballestero
  ********************************************************************************************/
 
 #ifndef _PRAGMA_LIB_VSMAKE_H_

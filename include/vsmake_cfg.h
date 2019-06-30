@@ -1,8 +1,6 @@
 /*********************************************************************************************
  *	Name		: vsmake_cfg.h
  *	Description	: Configuration of the project
- *  License     : MIT License (see LICENSE.txt)
- *	Copyright	(C) 2013 DATISA (http://www.datisa.es)
  ********************************************************************************************/
 
 #pragma once

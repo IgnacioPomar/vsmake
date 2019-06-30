@@ -1,0 +1,5 @@
+links with useful documentation:
+
+
+// Implementation of AnyOption (Command line and resource file option parsing)
+// http://www.hackorama.com/anyoption/

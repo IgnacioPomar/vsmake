@@ -1,7 +1,5 @@
 /*********************************************************************************************
  *	Name        : 002_parsepragmalib.cpp
- *  Copyright	(C) 2016 Ignacio Pomar Ballestero
- *  License     : MIT License (see LICENSE.txt)
  *  Description : Unit test to check the pragmalib directive resolutiosn
  ********************************************************************************************/
 #define protected public
