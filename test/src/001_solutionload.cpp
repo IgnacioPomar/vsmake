@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE (solutionLoad)
 	Project * pjLibvsmake = sol.getProject ("libvsmake");
 
 	//Check project data from the solution
-	BOOST_CHECK (pjLibvsmake->pd->projectId == std::string("6D4E6593-45E1-44A8-B568-450BD4CAE52A"));
+	BOOST_CHECK (pjLibvsmake->pd->projectId == std::string("8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942"));
 	BOOST_CHECK (pjLibvsmake->pd->projectId == pjVsmake->pd->dependencies.front());
 
 

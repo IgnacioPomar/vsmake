@@ -36,7 +36,7 @@
 // VSMAKE_LOCAL is used for non-api symbols.
 
 #ifdef VSMAKE_DLL // defined if VSMAKE is compiled as a DLL
-  #ifdef VSMAKE_DLL_EXPORTS // defined if we are building the VSMAKE DLL (instead of using it)
+  #ifdef LIBVSMAKE_EXPORTS // defined if we are building the VSMAKE DLL (instead of using it)
     #define VSMAKE_API VSMAKE_HELPER_DLL_EXPORT
   #else
     #define VSMAKE_API VSMAKE_HELPER_DLL_IMPORT
