@@ -85,7 +85,7 @@ std::string getProgressBar (Status itemStat, int barWidth, char iterateChar)
  * \param   [in]   itemName     element we are working with
  * \return  
  */
-std::string formatGroupInfo (Status itemStat, char* itemName)
+std::string formatGroupInfo (Status itemStat, const char* itemName)
 {
 	std::string retVal;
 	char buffer [MAX_BUFF_SIZE];
@@ -209,7 +209,7 @@ void DisplayProgressIndicator::printProgress (void)
  *
  * \param   [in]   message  the error message than must persist in the screen
  */
-void DisplayProgressIndicator::printErrorMessage (char * message)
+void DisplayProgressIndicator::printErrorMessage (const char * message)
 {
 	printProgress ();
 	std::cout << std::endl << message << std::endl;

@@ -24,13 +24,13 @@ public:
 	char iterateChar;
 	
 	//ProgressInfo over vsmake
-	char * solutionName;
+	const char * solutionName;
 	Status projects;
 
-	char * projectName;
+	const char * projectName;
 	Status sourceFiles;
 
-	char * sourceFileName;
+	const char * sourceFileName;
 
 	ProgressInfo ();
 
@@ -44,6 +44,6 @@ private:
 	char getIterateChar (void);
 public:
 	ProgressInfo progressInfo;
-	void printErrorMessage (char * message);
+	void printErrorMessage (const char * message);
 	void printProgress (void);
 };

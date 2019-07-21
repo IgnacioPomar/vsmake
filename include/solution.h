@@ -26,10 +26,10 @@ public:
 	Solution (const Solution &solution);
 	~Solution ();
 
-	VsMakeErrorCode loadSolution (char * solutionFile);
+	VsMakeErrorCode loadSolution (const char * solutionFile);
 	int getNumberOfProjects ();
 	Project* getProject (int projectIdx);
-	Project* getProject (char *  projectName);
+	Project* getProject (const char *  projectName);
 protected:
 	Solution_PrivateData * pd;
 private:

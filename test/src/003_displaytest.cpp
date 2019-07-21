@@ -17,7 +17,7 @@
 #endif
 
 #include <stdio.h>
-#include <boost/test/unit_test.hpp>
+#include <TinyCppUnit/TinyCppUnit.h>
 #include "progressInfo.h"
 
 
@@ -25,7 +25,7 @@
 #define TEST_ERROR_GENERATED			26
 
 
-BOOST_AUTO_TEST_CASE (displaytest)
+UNIT_TEST_CASE (displaytest)
 {
 	int i;
 	DisplayProgressIndicator display;

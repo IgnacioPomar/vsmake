@@ -3,9 +3,8 @@
  *  Description : Unit test to check the correct load of the solution
  ********************************************************************************************/
 
-#define protected public
 
-#include <boost/test/unit_test.hpp>
+#include <TinyCppUnit/TinyCppUnit.h>
 #include "vsmake.h"
 #include "project.h"
 
@@ -15,24 +14,27 @@
 
 
 
-BOOST_AUTO_TEST_CASE (solutionLoad)
+
+
+UNIT_TEST_CASE (solutionLoad)
 {
 	Solution sol;
 	
 
-	BOOST_CHECK_EQUAL (sol.loadSolution("../inexistent_solution.sln"), VSMAKE_SOLUTION_FILE_NOT_FOUND);
-	BOOST_CHECK_EQUAL (sol.loadSolution("../include/vsmake.h"),        VSMAKE_SOLUTION_FILE_BAD_FORMAT);
-	BOOST_CHECK_EQUAL (sol.loadSolution("../vsmake.sln"),              VSMAKE_ALL_OK);
+	UNIT_CHECK (sol.loadSolution("../inexistent_solution.sln") == VSMAKE_SOLUTION_FILE_NOT_FOUND);
+	UNIT_CHECK (sol.loadSolution("../include/vsmake.h") ==        VSMAKE_SOLUTION_FILE_BAD_FORMAT);
+	UNIT_CHECK (sol.loadSolution("../vsmake.sln") ==              VSMAKE_ALL_OK);
 
 	//Check the loaded data
-	BOOST_CHECK_EQUAL (sol.getNumberOfProjects(), 3);
+	UNIT_CHECK (sol.getNumberOfProjects() == 3);
 
 	Project * pjVsmake    = sol.getProject ("vsmake");
 	Project * pjLibvsmake = sol.getProject ("libvsmake");
 
+
 	//Check project data from the solution
-	BOOST_CHECK (pjLibvsmake->pd->projectId == std::string("8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942"));
-	BOOST_CHECK (pjLibvsmake->pd->projectId == pjVsmake->pd->dependencies.front());
+	UNIT_CHECK (pjLibvsmake->pd->projectId == std::string("8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942"));
+	UNIT_CHECK (pjLibvsmake->pd->projectId == pjVsmake->pd->dependencies.front());
 
 
 	//TODO: Check the project data

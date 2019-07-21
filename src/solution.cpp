@@ -41,7 +41,7 @@ Solution::~Solution ()
  * \param    [in]   solutionFile       Solution's file
  * \return VSMAKE_ALL_OK if the solution was loaded, or the error code if not
  ***********************************************************************************************/
-VsMakeErrorCode Solution::loadSolution (char * solutionFile)
+VsMakeErrorCode Solution::loadSolution (const char * solutionFile)
 {
 	return SolutionLoader::loadSolution (solutionFile, *this);
 }
@@ -71,7 +71,7 @@ Project* Solution::getProject (int projectIdx)
  * \param    [in]   projectIdx       Project name
  * \return Pointer to the project
  ***********************************************************************************************/
-Project* Solution::getProject (char *  projectName)
+Project* Solution::getProject (const char *  projectName)
 {
 	Project* pj = NULL;
 	std::vector<Project>::iterator it;
