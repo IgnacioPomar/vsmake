@@ -54,6 +54,9 @@
     <ClInclude Include="..\include\vsmake_pragmalib.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\dbgHelper.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\dllmain.cpp">

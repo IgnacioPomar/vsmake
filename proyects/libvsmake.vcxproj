@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\dbgHelper.h" />
     <ClInclude Include="..\include\parsepragmalib.h" />
     <ClInclude Include="..\include\progressInfo.h" />
     <ClInclude Include="..\include\project.h" />

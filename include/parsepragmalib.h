@@ -23,7 +23,7 @@ typedef struct _MacroLevelStat
 //To allow the tester have access the class data
 class VSMAKE_LOCAL ParsePragmaLibData
 {
-protected:
+public:
 	bool isBlockComment;			///<  if we are inside a block comment
 	bool isActiveCode;				///<  if the current code is active
 	bool wasMacroIfActived;			///<  if the if macro was active sometime
@@ -59,6 +59,9 @@ public:
 	int parseFile (std::string file);
 };
 
+
+class DbgHelper;
+
 //Class to work with the tester
 class VSMAKE_API ParsePragmaLibTester
 {
@@ -70,6 +73,8 @@ public:
 	
 	void addDefine (const char * define, const char * value);
 	int parseFile (const char * file);
+
+	void dbgGetLibs (DbgHelper * dbgHelper);
 
 };
 
