@@ -68,3 +68,33 @@ VsMakeErrorCode Project::loadProject ()
 }
 
 
+//-------------------------- TEST SECTION -------------------------
+#include "dbgHelper.h"
+
+/**
+ * DEBUG: for unit test use
+ * retrieves the project ID
+ * \param [in]   dbgHelper  listener class
+ */
+const char * Project::getId ()
+{
+	return pd->projectId.c_str ();
+}
+
+
+/**
+ * DEBUG: for unit test use
+ * Send all the dependencies
+ *
+ * \param [in]   dbgHelper  listener class
+ */
+void Project::dbgGetDependencies (DbgHelper * dbgHelper)
+{
+
+	for (const std::string &str : this->pd->dependencies)
+	{
+		dbgHelper->putStr (str.c_str ());
+	}
+}
+
+

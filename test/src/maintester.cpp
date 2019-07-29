@@ -4,7 +4,7 @@
  ********************************************************************************************/
 
 #include <TinyCppUnit/TinyCppUnit.h>
-
+#include "vsmakeTesterPragmalib.h"
 
 
 

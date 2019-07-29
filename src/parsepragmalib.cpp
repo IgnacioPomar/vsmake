@@ -6,8 +6,6 @@
 #include <iostream>
 #include <fstream>
 
-#include "dbgHelper.h"
-
 #include "parsepragmalib.h"
 
 #define SIZE_COMMENT_CHAR	2
@@ -514,6 +512,10 @@ void ParsePragmaLibTester::addDefine (const char * define, const char * value)
 {
 	((ParsePragmaLib*) pd)->addDefine (define, value);
 }
+
+
+//-------------------------- TEST SECTION -------------------------
+#include "dbgHelper.h"
 
 
 /**

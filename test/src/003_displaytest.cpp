@@ -21,8 +21,8 @@
 #include "progressInfo.h"
 
 
-#define NUMBER_OF_TEST_PROJECT_FILES	100
-#define TEST_ERROR_GENERATED			26
+static constexpr int NUMBER_OF_TEST_PROJECT_FILES = 100;
+static constexpr int TEST_ERROR_GENERATED		  = 26;
 
 
 UNIT_TEST_CASE (displaytest)

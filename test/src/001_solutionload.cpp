@@ -13,7 +13,7 @@
 #include "project_privatedata.h"
 
 
-
+#include "strCollector.h"
 
 
 UNIT_TEST_CASE (solutionLoad)
@@ -32,9 +32,12 @@ UNIT_TEST_CASE (solutionLoad)
 	Project * pjLibvsmake = sol.getProject ("libvsmake");
 
 
+	const char * projId = pjLibvsmake->getId ();
+	StrCollector dependencies;
+	pjVsmake->dbgGetDependencies (&dependencies);
+
 	//Check project data from the solution
-	UNIT_CHECK (pjLibvsmake->pd->projectId == std::string("8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942"));
-	UNIT_CHECK (pjLibvsmake->pd->projectId == pjVsmake->pd->dependencies.front());
+	UNIT_CHECK (dependencies.contains (projId));
 
 
 	//TODO: Check the project data

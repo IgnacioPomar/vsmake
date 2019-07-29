@@ -27,9 +27,15 @@
     <ClCompile Include="..\test\src\maintester.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\test\src\strCollector.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\test\include\vsmakeTesterPragmalib.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\test\include\strCollector.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

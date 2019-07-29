@@ -3,6 +3,8 @@
  *	Description	: Loads the solution file to memory
  ********************************************************************************************/
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h> 
@@ -199,7 +201,7 @@ void VSMAKE_LOCAL cleanSolutionUuid (std::string & uuidChunk)
 VsMakeErrorCode SolutionLoader::loadSolution (const char *solutionPath, Solution & solution)
 {
 	FILE * solutionFile;
-	solutionFile = fopen (solutionPath,"r");
+	solutionFile = fopen (solutionPath, "r");
 	if (solutionFile == NULL)
 	{
 		return VSMAKE_SOLUTION_FILE_NOT_FOUND;

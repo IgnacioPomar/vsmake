@@ -161,8 +161,10 @@
     <ClCompile Include="..\test\src\002_parsepragmalib.cpp" />
     <ClCompile Include="..\test\src\003_displaytest.cpp" />
     <ClCompile Include="..\test\src\maintester.cpp" />
+    <ClCompile Include="..\test\src\strCollector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\test\include\strCollector.h" />
     <ClInclude Include="..\test\include\vsmakeTesterPragmalib.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

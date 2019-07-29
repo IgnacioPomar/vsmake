@@ -1,5 +1,5 @@
 /*********************************************************************************************
- *	Name		: vsmakeTesterPragmalib
+ *	Name		: vsmakeTesterPragmalib.h
  *	Description	: Dependencies of the tester
  ********************************************************************************************/
 
@@ -11,7 +11,6 @@
 #endif
 
 
-#ifdef WIN32
  // Libraries the project needs
+#pragma comment(lib, "TinyCppUnit" END_LIB_STD)
 #pragma comment(lib, "libvsmake" END_LIB_STD)
-#endif

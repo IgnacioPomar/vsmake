@@ -10,9 +10,11 @@
 #include "vsmake_cfg.h"
 #include "vsmake_constants.h"
 
+ //Forward declaration
+class DbgHelper; 
 
-
-class Project_PrivateData; //PIMPL 
+//PIMPL 
+class Project_PrivateData; 
 
 class VSMAKE_API Project
 {
@@ -26,6 +28,11 @@ public:
 	void clear ();
 	void setProjectNameAndPath (const char * projectName, const char * projectPath, const char * projectId, const char * solutionPath);
 	VsMakeErrorCode loadProject ();
+
+	//function to use in the unit tests
+	const char * getId ();
+	void dbgGetDependencies (DbgHelper * dbgHelper);
+
 protected:
 	Project_PrivateData * pd;
 };
