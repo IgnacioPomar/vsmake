@@ -70,7 +70,7 @@ VsMakeErrorCode SolutionLoader::parseSolutionFile (FILE * solutionFile, Solution
 
 	Project currentProject; //if we are reading a project, we will use this var
 	
-	//The solution file in VS2010 and vs2015 have the same format
+	//The solution file in VS2010 and vs2017 have the same format
 	while ((retVal == VSMAKE_NOT_SET) && ((fgets (line, MAX_BUFF_SIZE, solutionFile)) != NULL))
 	{
 		switch (nextsolutionFileState)
@@ -100,7 +100,15 @@ VsMakeErrorCode SolutionLoader::parseSolutionFile (FILE * solutionFile, Solution
 					                                  lineChunks[SOLUTION_PROJ_PATH_POS].c_str(),
 													  lineChunks[SOLUTION_PROJ_UUID_POS].c_str(),
 													  solution.pd->solutionPath.c_str());
-				nextsolutionFileState = INSIDE_PROJECT;
+				if (lineChunks [SOLUTION_PROJ_PATH_POS].find (".vcxproj") != std::string::npos)
+				{
+					nextsolutionFileState = INSIDE_PROJECT;
+				}
+				else
+				{
+					//not a solution section. Must be ignored
+				}
+				
 
 				retVal = currentProject.loadProject ();
 				if (retVal == VSMAKE_ALL_OK)

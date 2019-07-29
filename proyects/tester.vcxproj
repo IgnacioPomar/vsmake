@@ -159,7 +159,12 @@
   <ItemGroup>
     <ClCompile Include="..\test\src\001_solutionload.cpp" />
     <ClCompile Include="..\test\src\002_parsepragmalib.cpp" />
-    <ClCompile Include="..\test\src\003_displaytest.cpp" />
+    <ClCompile Include="..\test\src\003_displaytest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\test\src\maintester.cpp" />
     <ClCompile Include="..\test\src\strCollector.cpp" />
   </ItemGroup>
