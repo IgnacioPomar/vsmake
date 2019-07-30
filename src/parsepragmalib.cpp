@@ -12,9 +12,9 @@
 #define SIZE_DEFINE         7
 
 
-/**
- * Constructor
- */
+ /**
+  * Constructor
+  */
 ParsePragmaLib::ParsePragmaLib ()
 {
 	isBlockComment = false;
@@ -26,7 +26,7 @@ ParsePragmaLib::ParsePragmaLib ()
  * \param  [in]  line  the line we want to clear
  * \return A string without comments.
  */
-//TODO: In the future we should check if we have somthing like  "/*" (or worse, in some lines)
+ //TODO: In the future we should check if we have somthing like  "/*" (or worse, in some lines)
 std::string ParsePragmaLib::cleanComments (std::string line)
 {
 	std::string cleanLine = line;
@@ -42,7 +42,7 @@ std::string ParsePragmaLib::cleanComments (std::string line)
 		}
 		else
 		{
-			cleanLine = cleanLine.substr (endCommentPosition + SIZE_COMMENT_CHAR); 
+			cleanLine = cleanLine.substr (endCommentPosition + SIZE_COMMENT_CHAR);
 			isBlockComment = 0;
 		}
 	}
@@ -93,7 +93,7 @@ bool ParsePragmaLib::isWordCharSeparator (char c)
 	case '\t':
 	case '\'':
 		return true;
-		break;		
+		break;
 	default:
 		return false;
 	}
@@ -104,8 +104,8 @@ bool ParsePragmaLib::isWordCharSeparator (char c)
  * \param [in]   line  the line we are parsing
  * \return The line with only valid code.
  */
-//YAGNI: check if the macro is inside quotes
-//YAGNI: ¿check quotes when joining with another one? (currently we are removing them in addDefine)
+ //YAGNI: check if the macro is inside quotes
+ //YAGNI: ¿check quotes when joining with another one? (currently we are removing them in addDefine)
 std::string ParsePragmaLib::replaceDefines (std::string line)
 {
 	//Considering only one preproccesor directive per line
@@ -113,8 +113,8 @@ std::string ParsePragmaLib::replaceDefines (std::string line)
 	std::string preProcessedLine = line;
 
 	std::map<std::string, std::string>::iterator iter;
-	
-	for (iter = defines.begin(); iter != defines.end(); ++iter) 
+
+	for (iter = defines.begin (); iter != defines.end (); ++iter)
 	{
 		macroPos = preProcessedLine.find (iter->first);
 		if (macroPos != std::string::npos)
@@ -124,23 +124,23 @@ std::string ParsePragmaLib::replaceDefines (std::string line)
 
 			//check if isnt a part of a bigger word
 			if ((macroPos != 0) && (!isWordCharSeparator (preProcessedLine [macroPos - 1])))
-			    continue; //Something in the left side, isnt a macro
-			size_t endPos = macroPos + iter->first.length() - 1;
-			if ((endPos != preProcessedLine.length ()) && 
+				continue; //Something in the left side, isnt a macro
+			size_t endPos = macroPos + iter->first.length () - 1;
+			if ((endPos != preProcessedLine.length ()) &&
 				(!isWordCharSeparator (preProcessedLine [endPos + 1])))
 				continue; //Something in the right side, isnt a macro
-	
+
 
 			//Find the fusion limit in the right
 			size_t nextLimit = preProcessedLine.find_first_not_of (" \t", endPos + 1);
 			if (nextLimit != std::string::npos)
 			{
-				if (preProcessedLine [nextLimit] == '"') 
+				if (preProcessedLine [nextLimit] == '"')
 					nextLimit++;//If there is a quote, we will fuson it
-					
+
 				replaceLen = nextLimit - macroPos;
 			}
-			else replaceLen = iter->first.length();
+			else replaceLen = iter->first.length ();
 
 			//Find the fusion limit in the left
 			size_t prevoiusLimit = preProcessedLine.find_last_not_of (" \t", macroPos - 1);
@@ -149,7 +149,7 @@ std::string ParsePragmaLib::replaceDefines (std::string line)
 				if (preProcessedLine [prevoiusLimit] != '"')
 					prevoiusLimit++;
 				replacePos = prevoiusLimit;
-				replaceLen+= macroPos - prevoiusLimit;
+				replaceLen += macroPos - prevoiusLimit;
 			}
 			else replacePos = macroPos;
 
@@ -172,17 +172,17 @@ std::string ParsePragmaLib::replaceDefines (std::string line)
  * \param [in]   conditionarDirectivePos  Position containing the conditional directctive
  * \return The line with only valid code.
  */
-std::string ParsePragmaLib::cleanMacroCondition   (std::string line, size_t conditionarDirectivePos)
+std::string ParsePragmaLib::cleanMacroCondition (std::string line, size_t conditionarDirectivePos)
 {
 	size_t requiredDefinePos;
 
 	//find condition start position
 	requiredDefinePos = line.find_first_of (" ", conditionarDirectivePos);
 	requiredDefinePos = line.find_first_not_of (" ", requiredDefinePos);
-	
+
 	//trim
 	std::string condition = line.substr (requiredDefinePos);
-	condition.erase (condition.find_last_not_of(" \n\r\t")+1);
+	condition.erase (condition.find_last_not_of (" \n\r\t") + 1);
 
 	return condition;
 }
@@ -196,7 +196,7 @@ std::string ParsePragmaLib::cleanMacroCondition   (std::string line, size_t cond
 bool ParsePragmaLib::isPositiveCondition (std::string condition)
 {
 	//YAGNI?: Evaluate complex conditions, for example, the defined directive
-	if (atoi(condition.c_str ()))
+	if (atoi (condition.c_str ()))
 	{
 		return true;
 	}
@@ -214,13 +214,13 @@ bool ParsePragmaLib::isPositiveCondition (std::string condition)
  */
 bool ParsePragmaLib::isDefined (std::string define)
 {
-	return (defines.find(define) != defines.end());
+	return (defines.find (define) != defines.end ());
 }
 
 
 /**
  * Takes the current level and stores it before changing the new level
- * \param [in]   newStatus   Status of isActiveCode of the new block 
+ * \param [in]   newStatus   Status of isActiveCode of the new block
  */
 void ParsePragmaLib::addMacroLevel (bool newStatus)
 {
@@ -314,7 +314,7 @@ std::string ParsePragmaLib::parsePreprocessorMacros (std::string line)
 	std::string preProcessedLine = "";
 
 	parseConditionalDirectives (line);
-	
+
 	if (0) //TODO: Comprobar condicionales
 	{
 		preProcessedLine = line;
@@ -343,8 +343,8 @@ void ParsePragmaLib::parseNewDefine (std::string line)
 	{
 		size_t startDefine = line.find_first_not_of (' ', definePos + SIZE_DEFINE);
 		//if startDefine == string::npos  ----> error
-		size_t endDefine   = line.find_first_of (' ', startDefine);
-		size_t startValue  = line.find_first_not_of (' ', endDefine);
+		size_t endDefine = line.find_first_of (' ', startDefine);
+		size_t startValue = line.find_first_not_of (' ', endDefine);
 
 		if (startValue == std::string::npos)
 		{
@@ -352,10 +352,10 @@ void ParsePragmaLib::parseNewDefine (std::string line)
 		}
 		else
 		{
-			size_t endValue    = line.find_last_not_of (' ');
+			size_t endValue = line.find_last_not_of (' ');
 
 			addDefine (line.substr (startDefine, endDefine - startDefine),
-				       line.substr (startValue,  endValue  - startValue + 1));
+					   line.substr (startValue, endValue - startValue + 1));
 		}
 	}
 
@@ -394,15 +394,15 @@ std::string ParsePragmaLib::removeQuotes (std::string line)
 
 	if (line.length () == 0) return line;
 
-	while (line[headOffset] == ' ') headOffset++;
-	while (line[line.length() - tailOffset - 1] == ' ') tailOffset++;
+	while (line [headOffset] == ' ') headOffset++;
+	while (line [line.length () - tailOffset - 1] == ' ') tailOffset++;
 
-	if (line[headOffset]    == '"') headOffset++;
-	if (line[line.length()    - tailOffset - 1] == '"')  tailOffset++;
+	if (line [headOffset] == '"') headOffset++;
+	if (line [line.length () - tailOffset - 1] == '"')  tailOffset++;
 
 	if (headOffset || headOffset) return line.substr (headOffset, line.length () - tailOffset - headOffset);
 	else return line;
-	
+
 }
 
 /**
@@ -425,7 +425,7 @@ void ParsePragmaLib::parsePragmaComment (std::string line)
 
 				pragmaPos = line.find (",", pragmaPos + 1) + 1;
 				parenthesesPos = line.find (")", pragmaPos);
-				lib = removeQuotes (line.substr (pragmaPos,  parenthesesPos - pragmaPos));
+				lib = removeQuotes (line.substr (pragmaPos, parenthesesPos - pragmaPos));
 				pragmaLibs.push_back (lib);
 			} //lib
 		}//comment
@@ -440,7 +440,7 @@ void ParsePragmaLib::parsePragmaComment (std::string line)
  */
 void ParsePragmaLib::addDefine (std::string define, std::string value)
 {
-	defines [define] = removeQuotes (value); 
+	defines [define] = removeQuotes (value);
 }
 
 
@@ -453,11 +453,11 @@ void ParsePragmaLib::addDefine (std::string define, std::string value)
 int ParsePragmaLib::parseFile (std::string file)
 {
 	std::string line;
-	std::ifstream pragmafile (file.c_str());
-	
-	if (pragmafile.is_open())
+	std::ifstream pragmafile (file.c_str ());
+
+	if (pragmafile.is_open ())
 	{
-		while (pragmafile.good())
+		while (pragmafile.good ())
 		{
 			getline (pragmafile, line);
 			parseCurrentLine (line);
@@ -505,7 +505,7 @@ int ParsePragmaLibTester::parseFile (const char * file)
  * Calls the ParsePragmaLib's addDefine method
  *
  * \param [in]   define  new define macro
- * \param [in]   value   value of the macro 
+ * \param [in]   value   value of the macro
  * \return 0 - if all ok. 1 - if the file could not been opened.
  */
 void ParsePragmaLibTester::addDefine (const char * define, const char * value)
@@ -530,6 +530,3 @@ void ParsePragmaLibTester::dbgGetLibs (DbgHelper * dbgHelper)
 		dbgHelper->putStr (str.c_str ());
 	}
 }
-
-
-

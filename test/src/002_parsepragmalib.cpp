@@ -1,4 +1,4 @@
-/*********************************************************************************************
+﻿/*********************************************************************************************
  *	Name        : 002_parsepragmalib.cpp
  *  Description : Unit test to check the pragmalib directive resolutiosn
  ********************************************************************************************/
@@ -19,7 +19,7 @@ UNIT_TEST_CASE (parsePragmalib)
 	{
 		ParsePragmaLibTester parser;
 		StrCollector pragmas;
-		
+
 		UNIT_REQUIRE (0 == parser.parseFile (EXAMPLE_PRAGMAFILE));
 		parser.dbgGetLibs (&pragmas);
 
@@ -28,16 +28,16 @@ UNIT_TEST_CASE (parsePragmalib)
 
 		UNIT_CHECK (pragmas.contains ("./std/lib/release/library1r.lib"));
 	}
-	
+
 	//Second case: using _DEBUG
 	{
 		ParsePragmaLibTester parser;
 		StrCollector pragmas;
-		
+
 		parser.addDefine ("_DEBUG", "");
 		UNIT_REQUIRE (0 == parser.parseFile (EXAMPLE_PRAGMAFILE));
 		parser.dbgGetLibs (&pragmas);
-		
+
 		UNIT_CHECK (pragmas.contains ("always.lib"));
 		UNIT_CHECK (!pragmas.contains ("invalid.lib"));
 
@@ -49,19 +49,19 @@ UNIT_TEST_CASE (parsePragmalib)
 	{
 		ParsePragmaLibTester parser;
 		StrCollector pragmas;
-		
+
 		parser.addDefine ("_DEBUG", "");
 		parser.addDefine ("_CUSTOM", "");
 		UNIT_REQUIRE (0 == parser.parseFile (EXAMPLE_PRAGMAFILE));
 		parser.dbgGetLibs (&pragmas);
-		
+
 		UNIT_CHECK (pragmas.contains ("always.lib"));
 		UNIT_CHECK (!pragmas.contains ("invalid.lib"));
-		UNIT_CHECK (pragmas.contains ("custom_debug.lib")  );
+		UNIT_CHECK (pragmas.contains ("custom_debug.lib"));
 
 		UNIT_CHECK (pragmas.contains ("./custom/lib/debug/library1d.lib"));
 		UNIT_CHECK (pragmas.contains ("./custom/lib/debug/library3d.lib"));
-		
+
 	}
-	
+
 }

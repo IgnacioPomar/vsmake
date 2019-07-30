@@ -1,9 +1,7 @@
-/********************************************************************
+﻿/********************************************************************
  * Name        : strCollector.h
  * Description : Implementation of the DbgHelper for the unit tests
  ********************************************************************/
-
-
 
 #pragma once
 #ifndef _STR_COLLECTOR_H_
@@ -20,5 +18,6 @@ public:
 	bool contains (const char * str);
 
 };
+
 
 #endif //_DBG_HELPER_H_

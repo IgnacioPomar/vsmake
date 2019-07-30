@@ -1,6 +1,6 @@
-/*********************************************************************************************
+﻿/*********************************************************************************************
  *	Name		: project.cpp
- *	Description	: 
+ *	Description	:
  ********************************************************************************************/
 
 
@@ -25,7 +25,7 @@ Project::Project (const Project & project)
 }
 
 
-Project::~Project()
+Project::~Project ()
 {
 	delete this->pd;
 }
@@ -48,9 +48,9 @@ void Project::setProjectNameAndPath (const char * projectName, const char * proj
 	this->pd->projectPath = solutionPath;
 
 	//TODO: When using C++11, we will use the back member function
-	if (!this->pd->projectPath.empty())
+	if (!this->pd->projectPath.empty ())
 	{
-		char lastChar = *this->pd->projectPath.rbegin();
+		char lastChar = *this->pd->projectPath.rbegin ();
 		if (lastChar != WIN_SLASH)
 		{
 			this->pd->projectPath.push_back (WIN_SLASH);
@@ -63,7 +63,7 @@ void Project::setProjectNameAndPath (const char * projectName, const char * proj
 
 VsMakeErrorCode Project::loadProject ()
 {
-	return SolutionLoader::loadProject (this->pd->projectPath.c_str(), *this);
+	return SolutionLoader::loadProject (this->pd->projectPath.c_str (), *this);
 	//return VSMAKE_NOT_IMPLEMENTED;
 }
 
@@ -96,5 +96,3 @@ void Project::dbgGetDependencies (DbgHelper * dbgHelper)
 		dbgHelper->putStr (str.c_str ());
 	}
 }
-
-

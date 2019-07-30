@@ -1,4 +1,4 @@
-/********************************************************************
+﻿/********************************************************************
  * Name        : progressInfo.h
  * Description : show in console the progress status
  ********************************************************************/
@@ -22,7 +22,7 @@ public:
 
 	//To iterate in operations witout status
 	char iterateChar;
-	
+
 	//ProgressInfo over vsmake
 	const char * solutionName;
 	Status projects;

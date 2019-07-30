@@ -1,6 +1,6 @@
-/*********************************************************************************************
+﻿/*********************************************************************************************
  *	Name		: project.h
- *	Description	: 
+ *	Description	:
  ********************************************************************************************/
 
 #pragma once
@@ -11,10 +11,10 @@
 #include "vsmake_constants.h"
 
  //Forward declaration
-class DbgHelper; 
+class DbgHelper;
 
 //PIMPL 
-class Project_PrivateData; 
+class Project_PrivateData;
 
 class VSMAKE_API Project
 {
@@ -23,7 +23,7 @@ class VSMAKE_API Project
 public:
 	Project ();
 	Project (const Project & project);
-	~Project();
+	~Project ();
 
 	void clear ();
 	void setProjectNameAndPath (const char * projectName, const char * projectPath, const char * projectId, const char * solutionPath);

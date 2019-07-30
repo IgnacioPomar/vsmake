@@ -1,11 +1,11 @@
-/*********************************************************************************************
+﻿/*********************************************************************************************
  *	Name        : 003_displaytest.cpp
  *  Description : this will test the console output
  ********************************************************************************************/
 
 #define  _CRT_SECURE_NO_WARNINGS //To avoid warning with standar
 
-//As long as this test will be visual, we will disable oce tested
+ //As long as this test will be visual, we will disable oce tested
 
 #ifdef WIN32
 #include <Windows.h>
@@ -22,7 +22,7 @@
 
 
 static constexpr int NUMBER_OF_TEST_PROJECT_FILES = 100;
-static constexpr int TEST_ERROR_GENERATED		  = 26;
+static constexpr int TEST_ERROR_GENERATED = 26;
 
 
 UNIT_TEST_CASE (displaytest)

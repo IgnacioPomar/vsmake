@@ -1,4 +1,4 @@
-/*********************************************************************************************
+﻿/*********************************************************************************************
  *	Name		: utils.h
  *	Description	: Bunch of headers from utilitis cpp
  ********************************************************************************************/
@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-//From stackoverflowcode.cpp
+ //From stackoverflowcode.cpp
 std::vector<std::string> split (const std::string &s, char delim);
 
 
@@ -19,4 +19,3 @@ char *realpath (const char *name, char *resolved = NULL);
 
 
 #endif //_UTILS_H_
-

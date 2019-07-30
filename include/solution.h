@@ -1,6 +1,6 @@
-/*********************************************************************************************
+﻿/*********************************************************************************************
  *	Name		: solution.cpp
- *	Description	: 
+ *	Description	:
  ********************************************************************************************/
 
 #pragma once
@@ -14,8 +14,8 @@
 #include "vsmake_constants.h"
 
 
-//PIMPL clases
-class Solution_PrivateData; 
+ //PIMPL clases
+class Solution_PrivateData;
 class Project;
 
 class VSMAKE_API Solution
@@ -37,4 +37,3 @@ private:
 };
 
 #endif //_SOLUTION_H_
-

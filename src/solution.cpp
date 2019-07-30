@@ -1,6 +1,6 @@
-/*********************************************************************************************
+﻿/*********************************************************************************************
  *	Name		: solution.cpp
- *	Description	: 
+ *	Description	:
  ********************************************************************************************/
 
 #include "solution.h"
@@ -9,9 +9,9 @@
 #include "solutionLoader.h"
 
 
-/***********************************************************************************************
- * Default constructor. Set the PIMPL memory
- ***********************************************************************************************/
+ /***********************************************************************************************
+  * Default constructor. Set the PIMPL memory
+  ***********************************************************************************************/
 Solution::Solution ()
 {
 	this->solutionFormatVersion = 0;
@@ -62,7 +62,7 @@ int Solution::getNumberOfProjects ()
  ***********************************************************************************************/
 Project* Solution::getProject (int projectIdx)
 {
-	return &this->pd->projects[projectIdx];
+	return &this->pd->projects [projectIdx];
 }
 
 
@@ -75,8 +75,8 @@ Project* Solution::getProject (const char *  projectName)
 {
 	Project* pj = NULL;
 	std::vector<Project>::iterator it;
-	
-	for (it=this->pd->projects.begin() ; it < this->pd->projects.end(); it++)
+
+	for (it = this->pd->projects.begin (); it < this->pd->projects.end (); it++)
 	{
 		if (it->pd->projectName == projectName)
 		{
@@ -87,5 +87,3 @@ Project* Solution::getProject (const char *  projectName)
 
 	return pj;
 }
-
-

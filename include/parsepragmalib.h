@@ -1,4 +1,4 @@
-/********************************************************************
+﻿/********************************************************************
  * Name        : parsepragmalib.h
  * Description : prototype of the parser
  ********************************************************************/
@@ -14,9 +14,9 @@
 #include <map>
 #include <vector>
 
-typedef struct _MacroLevelStat 
+typedef struct _MacroLevelStat
 {
-	bool isActiveCode; 
+	bool isActiveCode;
 	bool wasMacroIfActived;
 } MacroLevelStat;
 
@@ -27,32 +27,32 @@ public:
 	bool isBlockComment;			///<  if we are inside a block comment
 	bool isActiveCode;				///<  if the current code is active
 	bool wasMacroIfActived;			///<  if the if macro was active sometime
-	
+
 	std::vector <MacroLevelStat>        macroLevelStatus;
 
-	std::map <std::string,std::string>  defines;
+	std::map <std::string, std::string>  defines;
 	std::vector <std::string>           pragmaLibs;
 };
 
 //BEWARE: Each thread must have its own instance to be therad safe
-class VSMAKE_LOCAL ParsePragmaLib: public ParsePragmaLibData
+class VSMAKE_LOCAL ParsePragmaLib : public ParsePragmaLibData
 {
 private:
 
-	void parseCurrentLine               (std::string line);
-	std::string cleanComments           (std::string line);
-	std::string cleanMacroCondition     (std::string line, size_t conditionarDirectivePos);
+	void parseCurrentLine (std::string line);
+	std::string cleanComments (std::string line);
+	std::string cleanMacroCondition (std::string line, size_t conditionarDirectivePos);
 	std::string parsePreprocessorMacros (std::string line);
-	std::string replaceDefines          (std::string line);
-	void parseNewDefine                 (std::string line);
-	void parsePragmaComment             (std::string line);
-	void parseConditionalDirectives     (std::string line);
-	std::string removeQuotes            (std::string line);
-	bool isPositiveCondition			(std::string condition);
-	bool isDefined          			(std::string define);
-	void addMacroLevel                  (bool newStatus);
-	bool isWordCharSeparator            (char c);
-	
+	std::string replaceDefines (std::string line);
+	void parseNewDefine (std::string line);
+	void parsePragmaComment (std::string line);
+	void parseConditionalDirectives (std::string line);
+	std::string removeQuotes (std::string line);
+	bool isPositiveCondition (std::string condition);
+	bool isDefined (std::string define);
+	void addMacroLevel (bool newStatus);
+	bool isWordCharSeparator (char c);
+
 public:
 	ParsePragmaLib ();
 	void addDefine (std::string define, std::string value = "");
@@ -70,7 +70,7 @@ public:
 
 	ParsePragmaLibTester ();
 	~ParsePragmaLibTester ();
-	
+
 	void addDefine (const char * define, const char * value);
 	int parseFile (const char * file);
 
@@ -79,4 +79,3 @@ public:
 };
 
 #endif 
-

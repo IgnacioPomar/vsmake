@@ -1,6 +1,6 @@
-/*********************************************************************************************
+﻿/*********************************************************************************************
  *	Name		: solution_privatedata.h
- *	Description	: Class to opaque pointer to store the Solution's private data 
+ *	Description	: Class to opaque pointer to store the Solution's private data
  ********************************************************************************************/
 
 
@@ -22,4 +22,3 @@ public:
 };
 
 #endif //_SOLUTION_PRIVATEDATA_H_
-

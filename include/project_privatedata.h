@@ -1,6 +1,6 @@
-/*********************************************************************************************
+﻿/*********************************************************************************************
  *	Name		: project_privatedata.h
- *	Description	: Class to opaque pointer to store the Project's private data 
+ *	Description	: Class to opaque pointer to store the Project's private data
  ********************************************************************************************/
 
 #pragma once

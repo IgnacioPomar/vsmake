@@ -1,4 +1,4 @@
-/*********************************************************************************************
+﻿/*********************************************************************************************
  *	Name        : system.cpp
  *  Description : Calls to the system
  ********************************************************************************************/
@@ -23,7 +23,7 @@
 #define OPEN_ATTRS	"r"
 #endif
 
-//Just to pimpl std::string
+ //Just to pimpl std::string
 class VSMAKE_LOCAL SystemCallData
 {
 public:
@@ -51,13 +51,13 @@ SystemCall::~SystemCall ()
  ***********************************************************************************************/
 bool SystemCall::isGccWarning ()
 {
-	return ((pd->retVal == 0) && (pd->txtReturned.size() != 0));
+	return ((pd->retVal == 0) && (pd->txtReturned.size () != 0));
 }
 
 
 /***********************************************************************************************
  * checks if there was a error
- * \return  Returns 1 if there is any error, else 0 
+ * \return  Returns 1 if there is any error, else 0
  ***********************************************************************************************/
 bool SystemCall::isGccError ()
 {
@@ -68,18 +68,18 @@ bool SystemCall::isGccError ()
 /***********************************************************************************************
  * opens a process creating a pipe, and storing in the class the results
  * \param    [in]   command   Command to be executed.
- * \return  Returns the exit status of the terminating command, or �1 if an error occurs.
+ * \return  Returns the exit status of the terminating command, or –1 if an error occurs.
  ***********************************************************************************************/
 int SystemCall::exec (const char * command)
 {
-	char   buffer[BUFF_SIZE];
+	char   buffer [BUFF_SIZE];
 	FILE   *pipe;
 	std::ostringstream outBuffer;
 
 	pd->commandLine = command;
 	pd->txtReturned.empty (); //if we are reusing...
 
-    if ((pipe = popen (command, OPEN_ATTRS)) == NULL)
+	if ((pipe = popen (command, OPEN_ATTRS)) == NULL)
 	{
 		return pd->retVal = -1;
 	}
@@ -90,9 +90,9 @@ int SystemCall::exec (const char * command)
 		outBuffer << buffer << std::endl;
 	}
 
-	pd->txtReturned = outBuffer.str();
-	
-	if (feof( pipe))
+	pd->txtReturned = outBuffer.str ();
+
+	if (feof (pipe))
 	{
 		return pd->retVal = pclose (pipe);
 	}
