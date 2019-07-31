@@ -83,7 +83,7 @@
     <ClCompile Include="..\src\system.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\winutils.cpp">
+    <ClCompile Include="..\src\utils.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

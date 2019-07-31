@@ -3,15 +3,10 @@
  *	Description	: Loads the solution file to memory
  ********************************************************************************************/
 
-#define _CRT_SECURE_NO_WARNINGS
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h> 
-
-#ifndef WIN32
-#include <libgen.h>
-#endif
+#include <fstream>
+#include <sstream>
+#include <string>
 
 #include "utils.h"
 #include "solution.h"
@@ -22,12 +17,6 @@
 
 
  //--------------  local defines  --------------
-
-#define MAX_BUFF_SIZE	1024
-
-
-
-
 enum SolutionFileState
 {
 	FIRST_LINE = 1,
@@ -38,6 +27,30 @@ enum SolutionFileState
 };
 
 
+/***********************************************************************************************
+ * Load a Visual studio solution
+ * \param    [in]   solutionPath   Full path of the solution file
+ * \param    [out]  solution       Solution class where we store the data parsed
+ * \return  Error code of the operation. VSMAKE_ALL_OK if all was ok
+ ***********************************************************************************************/
+VsMakeErrorCode SolutionLoader::loadSolution (const char *solutionPath, Solution & solution)
+{
+	std::ifstream ifs;
+	ifs.open (solutionPath, std::ifstream::in);
+
+	if (!ifs.is_open ())
+	{
+		return VSMAKE_SOLUTION_FILE_NOT_FOUND;
+	}
+	else
+	{
+		setFilePath (solutionPath, solution.pd->solutionPath);
+
+		VsMakeErrorCode retVal = parseSolutionFile (ifs, solution);
+		ifs.close ();
+		return retVal;
+	}
+}
 
 
 /***********************************************************************************************
@@ -46,16 +59,17 @@ enum SolutionFileState
  * \param    [out]  solution       Solution class where we store the data parsed
  * \return  Error code of the operation. VSMAKE_ALL_OK if all was ok
  ***********************************************************************************************/
-VsMakeErrorCode SolutionLoader::parseSolutionFile (FILE * solutionFile, Solution & solution)
+VsMakeErrorCode SolutionLoader::parseSolutionFile (std::ifstream  &ifs, Solution & solution)
 {
 	VsMakeErrorCode retVal = VSMAKE_NOT_SET;
-	char line [MAX_BUFF_SIZE];
 	SolutionFileState nextsolutionFileState = FIRST_LINE;
 
 	Project currentProject; //if we are reading a project, we will use this var
 
+	std::string line;
+
 	//The solution file in VS2010 and vs2017 have the same format
-	while ((retVal == VSMAKE_NOT_SET) && ((fgets (line, MAX_BUFF_SIZE, solutionFile)) != NULL))
+	while ((retVal == VSMAKE_NOT_SET) && std::getline (ifs, line))
 	{
 		switch (nextsolutionFileState)
 		{
@@ -63,7 +77,7 @@ VsMakeErrorCode SolutionLoader::parseSolutionFile (FILE * solutionFile, Solution
 			nextsolutionFileState = FILE_FORMAT_LINE;
 			break;
 		case FILE_FORMAT_LINE: //Second line contains the version file
-			if (strstr (line, SOLUTION_FILE_MARK))
+			if (std::string::npos != line.find (SOLUTION_FILE_MARK))
 			{
 				parseSolutionFormatVersion (line);
 				nextsolutionFileState = WAITING_PROJECT;
@@ -74,7 +88,7 @@ VsMakeErrorCode SolutionLoader::parseSolutionFile (FILE * solutionFile, Solution
 			}
 			break;
 		case WAITING_PROJECT:
-			if (strstr (line, SOLUTION_PROJECT_START))
+			if (std::string::npos != line.find (SOLUTION_PROJECT_START))
 			{
 				currentProject.clear ();
 				std::vector<std::string> lineChunks = split (line, '"');
@@ -102,26 +116,26 @@ VsMakeErrorCode SolutionLoader::parseSolutionFile (FILE * solutionFile, Solution
 				}
 
 			}
-			else if (strstr (line, SOLUTION_END_PARSE_ZONE))
+			else if (std::string::npos != line.find (SOLUTION_END_PARSE_ZONE))
 			{
 				retVal = VSMAKE_ALL_OK;
 			}
 			break;
 
 		case INSIDE_PROJECT:
-			if (strstr (line, SOLUTION_PROJECT_END))
+			if (std::string::npos != line.find (SOLUTION_PROJECT_END))
 			{
 				solution.pd->projects.push_back (currentProject);
 				nextsolutionFileState = WAITING_PROJECT;
 			}
-			else if (strstr (line, SOLUTION_PROJECT_DEP_START))
+			else if (std::string::npos != line.find (SOLUTION_PROJECT_DEP_START))
 			{
 				nextsolutionFileState = INSIDE_PROJECT_SECTION;
 			}
 			break;
 
 		case INSIDE_PROJECT_SECTION:
-			if (strstr (line, SOLUTION_PROJECT_DEP_END))
+			if (std::string::npos != line.find (SOLUTION_PROJECT_DEP_END))
 			{
 				nextsolutionFileState = INSIDE_PROJECT;
 			}
@@ -148,17 +162,15 @@ VsMakeErrorCode SolutionLoader::parseSolutionFile (FILE * solutionFile, Solution
  * \param    [in]   versionLine       String containing the version number
  * \return The format version number, or 0 if error
  ***********************************************************************************************/
-int SolutionLoader::parseSolutionFormatVersion (char * versionLine)
+int SolutionLoader::parseSolutionFormatVersion (std::string & versionLine)
 {
-	int versionNumber;
+	std::string versionMark = SOLUTION_FILE_MARK;
 
-	char * versionPos = &versionLine [strlen (SOLUTION_FILE_MARK)];
-	versionNumber = 100 * atoi (versionPos);
-	versionPos = strstr (versionPos, ".");
-	versionNumber += atoi (++versionPos);
-
-	return versionNumber;
-
+	size_t pos = versionLine.find (versionMark);
+	pos += versionMark.size ();
+	std::string versionStr = versionLine.substr (pos);
+	versionStr.erase (versionStr.find ("."), 1);
+	return std::stoi (versionStr);
 }
 
 
@@ -184,31 +196,6 @@ void SolutionLoader::cleanSolutionUuid (std::string & uuidChunk)
 }
 
 
-/***********************************************************************************************
- * Load a Visual studio solution
- * \param    [in]   solutionPath   Full path of the solution file
- * \param    [out]  solution       Solution class where we store the data parsed
- * \return  Error code of the operation. VSMAKE_ALL_OK if all was ok
- ***********************************************************************************************/
-VsMakeErrorCode SolutionLoader::loadSolution (const char *solutionPath, Solution & solution)
-{
-	FILE * solutionFile;
-	solutionFile = fopen (solutionPath, "r");
-	if (solutionFile == NULL)
-	{
-		return VSMAKE_SOLUTION_FILE_NOT_FOUND;
-	}
-	else
-	{
-		char solutionFullPath [MAX_BUFF_SIZE];
-		realpath (solutionPath, solutionFullPath);
-		solution.pd->solutionPath = dirname (solutionFullPath);
-
-		VsMakeErrorCode retVal = parseSolutionFile (solutionFile, solution);
-		fclose (solutionFile);
-		return retVal;
-	}
-}
 
 
 
@@ -223,6 +210,6 @@ VsMakeErrorCode SolutionLoader::loadSolution (const char *solutionPath, Solution
 VsMakeErrorCode SolutionLoader::loadProject (const char *projectPath, Project & project)
 {
 
-	return VSMAKE_ALL_OK;
-	//return VSMAKE_NOT_IMPLEMENTED;
+	//return VSMAKE_ALL_OK;
+	return VSMAKE_NOT_IMPLEMENTED;
 }

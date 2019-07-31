@@ -38,10 +38,10 @@ private:
 	static constexpr const int SOLUTION_PROJ_DEP_POS = 2;
 
 
-	static VsMakeErrorCode parseSolutionFile (FILE * solutionFile, Solution & solution);
+	static VsMakeErrorCode parseSolutionFile (std::ifstream  &ifs, Solution & solution);
 
 	static void cleanSolutionUuid (std::string & uuid);
-	static int parseSolutionFormatVersion (char * versionLine);
+	static int parseSolutionFormatVersion (std::string & versionLine);
 
 public:
 	static VsMakeErrorCode loadSolution (const char *solutionPath, Solution & solution);

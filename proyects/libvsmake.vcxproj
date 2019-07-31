@@ -181,7 +181,7 @@
     <ClCompile Include="..\src\solutionLoader.cpp" />
     <ClCompile Include="..\src\stackoverflowcode.cpp" />
     <ClCompile Include="..\src\system.cpp" />
-    <ClCompile Include="..\src\winutils.cpp" />
+    <ClCompile Include="..\src\utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

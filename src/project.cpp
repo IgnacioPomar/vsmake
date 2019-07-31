@@ -64,7 +64,6 @@ void Project::setProjectNameAndPath (const char * projectName, const char * proj
 VsMakeErrorCode Project::loadProject ()
 {
 	return SolutionLoader::loadProject (this->pd->projectPath.c_str (), *this);
-	//return VSMAKE_NOT_IMPLEMENTED;
 }
 
 

@@ -13,9 +13,8 @@
 std::vector<std::string> split (const std::string &s, char delim);
 
 
-//Inside winutils.cpp
-char *dirname (const char *path);
-char *realpath (const char *name, char *resolved = NULL);
+//Inside utils.cpp
+void setFilePath (const char * filename, std::string &dest);
 
 
 #endif //_UTILS_H_
