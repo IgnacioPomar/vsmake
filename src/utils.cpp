@@ -21,6 +21,9 @@ namespace fs = std::filesystem;
 #endif //_MSC_VER
 
 
+constexpr auto WIN_SLASH = '\\';
+constexpr auto STD_SLASH = '/';
+
 
 /***
  * We need this While waiting for C++20 to arrive
@@ -47,8 +50,16 @@ void setFilePath (const char * filename, std::string & dest)
 	p = fs::canonical (p);
 	dest = p.parent_path ().string ();
 
-	if (!(endsWith (dest, "\\") || endsWith (dest, "/")))
+	char lastChar = dest.back ();
+	if ((lastChar != WIN_SLASH) || (lastChar != STD_SLASH))
 	{
-		dest.append ("/");
+		dest.push_back (STD_SLASH);
 	}
+}
+
+
+bool hasAbsolutePath (const char * filename)
+{
+	fs::path p = filename;
+	return p.is_absolute ();
 }

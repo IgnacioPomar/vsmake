@@ -39,13 +39,24 @@ UNIT_TEST_CASE (solutionLoad)
 	UNIT_CHECK (dependencies.contains (projId));
 
 
+
+}
+UNIT_TEST_CASE (projectLoad)
+{
+	{
+		Project pj ("Inexistentproject", "../inexistent_project.sln", "ID", "");
+		UNIT_CHECK (pj.loadProject () == VSMAKE_PROJECT_FILE_NOT_FOUND);
+	}
+	{
+		Project pj ("Inexistentproject", "../include/vsmake.h", "ID", "");
+		UNIT_CHECK (pj.loadProject () == VSMAKE_PROJECT_FILE_BAD_FORMAT);
+	}
+
+
+	Solution sol;
+	UNIT_REQUIRE (sol.loadSolution ("../vsmake.sln") == VSMAKE_ALL_OK);
+
+	UNIT_CHECK (sol.loadProjects () == VSMAKE_ALL_OK);
+
 	//TODO: Check the project data
-
-
-
-
-	//pj->clear();
-
-	//BOOST_CHECK_EQUAL (pj.pd, NULL);
-
 }

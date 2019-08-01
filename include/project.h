@@ -21,7 +21,7 @@ class VSMAKE_API Project
 	friend class SolutionLoader;
 	friend class Solution;
 public:
-	Project ();
+	Project (const char * projectName = nullptr, const char * projectPath = nullptr, const char * projectId = nullptr, const char * solutionPath = nullptr);
 	Project (const Project & project);
 	~Project ();
 

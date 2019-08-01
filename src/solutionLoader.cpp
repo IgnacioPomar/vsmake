@@ -92,29 +92,22 @@ VsMakeErrorCode SolutionLoader::parseSolutionFile (std::ifstream  &ifs, Solution
 			{
 				currentProject.clear ();
 				std::vector<std::string> lineChunks = split (line, '"');
-				cleanSolutionUuid (lineChunks [SOLUTION_PROJ_UUID_POS]);
 
-				currentProject.setProjectNameAndPath (lineChunks [SOLUTION_PROJ_NAME_POS].c_str (),
-													  lineChunks [SOLUTION_PROJ_PATH_POS].c_str (),
-													  lineChunks [SOLUTION_PROJ_UUID_POS].c_str (),
-													  solution.pd->solutionPath.c_str ());
 				if (lineChunks [SOLUTION_PROJ_PATH_POS].find (".vcxproj") != std::string::npos)
 				{
 					nextsolutionFileState = INSIDE_PROJECT;
+
+					cleanSolutionUuid (lineChunks [SOLUTION_PROJ_UUID_POS]);
+
+					currentProject.setProjectNameAndPath (lineChunks [SOLUTION_PROJ_NAME_POS].c_str (),
+														  lineChunks [SOLUTION_PROJ_PATH_POS].c_str (),
+														  lineChunks [SOLUTION_PROJ_UUID_POS].c_str (),
+														  solution.pd->solutionPath.c_str ());
 				}
 				else
 				{
 					//not a solution section. Must be ignored
 				}
-
-
-				retVal = currentProject.loadProject ();
-				if (retVal == VSMAKE_ALL_OK)
-				{
-					//The project was loaded succesfully, we continue processing the file
-					retVal = VSMAKE_NOT_SET;
-				}
-
 			}
 			else if (std::string::npos != line.find (SOLUTION_END_PARSE_ZONE))
 			{
@@ -193,23 +186,4 @@ void SolutionLoader::cleanSolutionUuid (std::string & uuidChunk)
 	{
 		uuidChunk.erase (charPos);
 	}
-}
-
-
-
-
-
-//-------------------- Load Project --------------------
-
-/***********************************************************************************************
- * Load a Visual studio solution
- * \param    [in]   solutionPath   Full path of the solution file
- * \param    [out]  solution       Solution class where we store the data parsed
- * \return  Error code of the operation. VSMAKE_ALL_OK if all was ok
- ***********************************************************************************************/
-VsMakeErrorCode SolutionLoader::loadProject (const char *projectPath, Project & project)
-{
-
-	//return VSMAKE_ALL_OK;
-	return VSMAKE_NOT_IMPLEMENTED;
 }

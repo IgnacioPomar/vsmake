@@ -30,6 +30,8 @@ public:
 	int getNumberOfProjects ();
 	Project* getProject (int projectIdx);
 	Project* getProject (const char *  projectName);
+
+	VsMakeErrorCode loadProjects ();
 protected:
 	Solution_PrivateData * pd;
 private:

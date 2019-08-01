@@ -15,6 +15,7 @@ std::vector<std::string> split (const std::string &s, char delim);
 
 //Inside utils.cpp
 void setFilePath (const char * filename, std::string &dest);
+bool hasAbsolutePath (const char * filename);
 
 
 #endif //_UTILS_H_

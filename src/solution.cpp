@@ -87,3 +87,20 @@ Project* Solution::getProject (const char *  projectName)
 
 	return pj;
 }
+
+/**
+* Loads all the projects inside the solution
+*/
+VsMakeErrorCode Solution::loadProjects ()
+{
+	for (Project &pj : this->pd->projects)
+	{
+		VsMakeErrorCode ret = pj.loadProject ();
+		if (ret != VSMAKE_ALL_OK)
+		{
+			return ret;
+		}
+	}
+
+	return VSMAKE_ALL_OK;
+}

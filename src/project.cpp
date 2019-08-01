@@ -4,18 +4,21 @@
  ********************************************************************************************/
 
 
-
+#include "utils.h"
 #include "project.h"
 #include "project_privatedata.h"
-#include "solutionLoader.h"
+#include "ProjectLoader.h"
 
 
-#define WIN_SLASH	'\\'
 
 
-Project::Project ()
+
+
+
+Project::Project (const char * projectName, const char * projectPath, const char * projectId, const char * solutionPath)
 {
 	this->pd = new Project_PrivateData ();
+	this->setProjectNameAndPath (projectName, projectPath, projectId, solutionPath);
 }
 
 Project::Project (const Project & project)
@@ -32,6 +35,8 @@ Project::~Project ()
 
 
 
+
+
 void Project::clear ()
 {
 	//TODO: delete the project specific data
@@ -43,27 +48,28 @@ void Project::clear ()
 
 void Project::setProjectNameAndPath (const char * projectName, const char * projectPath, const char * projectId, const char * solutionPath)
 {
-	this->pd->projectName = projectName;
-	this->pd->projectId = projectId;
-	this->pd->projectPath = solutionPath;
+	this->pd->projectName = (projectName == nullptr) ? "" : projectName;
+	this->pd->projectId = (projectId == nullptr) ? "" : projectId;
 
-	//TODO: When using C++11, we will use the back member function
-	if (!this->pd->projectPath.empty ())
+	const char * tmpProjectPath = (projectPath == nullptr) ? "" : projectPath;
+
+
+	if (hasAbsolutePath (tmpProjectPath))
 	{
-		char lastChar = *this->pd->projectPath.rbegin ();
-		if (lastChar != WIN_SLASH)
-		{
-			this->pd->projectPath.push_back (WIN_SLASH);
-		}
+		setFilePath (tmpProjectPath, this->pd->projectPath);
 	}
-
-	this->pd->projectPath.append (projectPath);
+	else
+	{
+		std::string tmpPath = (solutionPath == nullptr) ? "" : solutionPath;
+		tmpPath.append (tmpProjectPath);
+		setFilePath (tmpPath.c_str (), this->pd->projectPath);
+	}
 }
 
 
 VsMakeErrorCode Project::loadProject ()
 {
-	return SolutionLoader::loadProject (this->pd->projectPath.c_str (), *this);
+	return ProjectLoader::loadProject (this->pd->projectPath.c_str (), *this);
 }
 
 

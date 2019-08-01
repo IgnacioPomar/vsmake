@@ -12,15 +12,8 @@
 #include "vsmake_cfg.h"
 #include "vsmake_constants.h"
 
- //PIMPL classes
+
 class Solution;
-class Project;
-
-// Evitamos incluir cabeceras de libxml2
-struct _xmlTextReader;
-typedef struct _xmlTextReader xmlTextReader;
-typedef xmlTextReader* xmlTextReaderPtr;
-
 
 class VSMAKE_LOCAL SolutionLoader
 {
@@ -45,7 +38,7 @@ private:
 
 public:
 	static VsMakeErrorCode loadSolution (const char *solutionPath, Solution & solution);
-	static VsMakeErrorCode loadProject (const char *projectPath, Project & project);
+
 };
 
 #endif //_VSMAKE_SOLUTION_LOADER_H_

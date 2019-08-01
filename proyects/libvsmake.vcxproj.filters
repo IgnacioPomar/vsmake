@@ -57,6 +57,9 @@
     <ClInclude Include="..\include\dbgHelper.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\ProjectLoader.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\dllmain.cpp">
@@ -84,6 +87,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\utils.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ProjectLoader.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
