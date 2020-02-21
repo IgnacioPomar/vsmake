@@ -3,7 +3,7 @@
  * Description : show in console the progress status
  ********************************************************************/
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <Windows.h>
 #else
 #include <sys/ioctl.h>
