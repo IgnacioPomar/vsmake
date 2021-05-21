@@ -14,16 +14,23 @@
 class Project_PrivateData;
 
 // Evitamos incluir cabeceras de libxml2
-struct _xmlTextReader;
-typedef struct _xmlTextReader xmlTextReader;
-typedef xmlTextReader* xmlTextReaderPtr;
+namespace tinyxml2
+{
+	class XMLElement;
+}
 
 
-
+/**
+ *	\see	//https://docs.microsoft.com/en-us/cpp/build/reference/vcxproj-file-structure?view=msvc-160
+ */
 class VSMAKE_LOCAL ProjectLoader
 {
 private:
 	static std::string getConfNameFromConfition (const char * condition);
+	static void loadProjectProperties (Project_PrivateData & project, tinyxml2::XMLElement * root);
+	static void loadProjectConfigurations (Project_PrivateData & project, tinyxml2::XMLElement * root);
+	static void loadConfigurationsProperties (Project_PrivateData & project, tinyxml2::XMLElement * root);
+	static void loadSourceFiles (Project_PrivateData & project, tinyxml2::XMLElement * root);
 public:
 	static VsMakeErrorCode loadProject (Project_PrivateData & project);
 };

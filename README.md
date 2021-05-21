@@ -16,14 +16,6 @@ This project has the following Dependencies:
 - [TinyCppUnit](https://github.com/IgnacioPomar/TinyCppUnit) (only for unit-testing)
 
 
-
-It is necessary to keep the libbrary in the following structure:
-```
-$(SolutionDir)../vc/$(PlatformShortName)/include/
-$(SolutionDir)../vc/$(PlatformShortName)/lib/
-$(SolutionDir)../vc/$(PlatformShortName)/dll/
-```
-
 ## Authors
 - Ignacio Pomar Ballestero
 
@@ -42,6 +34,17 @@ make install
 ```
 
 ## pragmalib
+
+
+## Roadmap
+This is the roadmap for this project:
+- **V 0.1.0** : The project will compile basic solutions and projects (using itself as test project)
+- **V 0.2.0** : the project will compile only the changed cpp files
+- **V 0.3.0** : The support of external XML with properties with changes (for example, versioning)
+- **V 0.4.0** : The project will add a sqlite database with the includes used by a cpp, and so, making a better selection of files who must be recompiled
+- **V 0.?.0** : To be defined...
+- **V 1.0.0** : The project will include a second utility to "install" the results of the project
+
 
 
 
