@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{b5660542-cbbd-4b57-9187-ed41d4dff061}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\parsepragmalib.h">
@@ -60,6 +63,9 @@
     <ClInclude Include="..\include\ProjectLoader.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\vendor\tinyxml2.h">
+      <Filter>vendor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\dllmain.cpp">
@@ -90,6 +96,12 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ProjectLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vendor\tinyxml2.cpp">
+      <Filter>vendor</Filter>
+    </ClCompile>
+    <ClCompile Include="project_privatedata.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

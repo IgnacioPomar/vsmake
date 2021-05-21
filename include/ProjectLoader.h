@@ -11,7 +11,7 @@
 #include "vsmake_cfg.h"
 #include "vsmake_constants.h"
 
-class Project;
+class Project_PrivateData;
 
 // Evitamos incluir cabeceras de libxml2
 struct _xmlTextReader;
@@ -22,8 +22,10 @@ typedef xmlTextReader* xmlTextReaderPtr;
 
 class VSMAKE_LOCAL ProjectLoader
 {
+private:
+	static std::string getConfNameFromConfition (const char * condition);
 public:
-	static VsMakeErrorCode loadProject (const char *projectPath, Project & project);
+	static VsMakeErrorCode loadProject (Project_PrivateData & project);
 };
 
 #endif //_VSMAKE_PROJECT_LOADER_H_

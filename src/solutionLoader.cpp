@@ -68,7 +68,7 @@ VsMakeErrorCode SolutionLoader::parseSolutionFile (std::ifstream  &ifs, Solution
 
 	std::string line;
 
-	//The solution file in VS2010 and vs2017 have the same format
+	//The solution file in VS2010, vs2017, and vs2019 have the same format
 	while ((retVal == VSMAKE_NOT_SET) && std::getline (ifs, line))
 	{
 		switch (nextsolutionFileState)
@@ -92,17 +92,17 @@ VsMakeErrorCode SolutionLoader::parseSolutionFile (std::ifstream  &ifs, Solution
 			{
 				currentProject.clear ();
 				std::vector<std::string> lineChunks = split (line, '"');
-
-				if (lineChunks [SOLUTION_PROJ_PATH_POS].find (".vcxproj") != std::string::npos)
+				//YAGNI: Maybe check that the line starts with Project instead of checking the extension
+				if (lineChunks[SOLUTION_PROJ_PATH_POS].find (".vcxproj") != std::string::npos)
 				{
 					nextsolutionFileState = INSIDE_PROJECT;
 
-					cleanSolutionUuid (lineChunks [SOLUTION_PROJ_UUID_POS]);
+					cleanSolutionUuid (lineChunks[SOLUTION_PROJ_UUID_POS]);
 
-					currentProject.setProjectNameAndPath (lineChunks [SOLUTION_PROJ_NAME_POS].c_str (),
-														  lineChunks [SOLUTION_PROJ_PATH_POS].c_str (),
-														  lineChunks [SOLUTION_PROJ_UUID_POS].c_str (),
-														  solution.pd->solutionPath.c_str ());
+					currentProject.setProjectNameAndPath (lineChunks[SOLUTION_PROJ_NAME_POS].c_str (),
+						lineChunks[SOLUTION_PROJ_PATH_POS].c_str (),
+						lineChunks[SOLUTION_PROJ_UUID_POS].c_str (),
+						solution.pd->solutionPath.c_str ());
 				}
 				else
 				{
@@ -136,8 +136,8 @@ VsMakeErrorCode SolutionLoader::parseSolutionFile (std::ifstream  &ifs, Solution
 			{
 				//TODO: Buscar project ID
 				std::vector<std::string> lineChunks = split (line, '{');
-				cleanSolutionUuid (lineChunks [SOLUTION_PROJ_DEP_POS]);
-				currentProject.pd->dependencies.push_back (lineChunks [SOLUTION_PROJ_DEP_POS]);
+				cleanSolutionUuid (lineChunks[SOLUTION_PROJ_DEP_POS]);
+				currentProject.pd->dependencies.push_back (lineChunks[SOLUTION_PROJ_DEP_POS]);
 			}
 			break;
 

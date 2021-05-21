@@ -13,8 +13,8 @@ This tool is born with the desire to directly compile the solution.
 
 ## Requirements
 This project has the following Dependencies:
-- Boost Test Library
-- libxml2  library
+- [TinyCppUnit](https://github.com/IgnacioPomar/TinyCppUnit) (only for unit-testing)
+
 
 
 It is necessary to keep the libbrary in the following structure:
@@ -55,6 +55,9 @@ The files with diferent license are marked in the file itself.
 Other parts snippets
 License :  [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/)
 - [Snnipet one](http://stackoverflow.com/a/236803/74785) Author [Evan Teran](http://stackoverflow.com/users/13430/evan-teran)
+
+License : [zlib License](https://en.wikipedia.org/wiki/Zlib_License)
+- [TinyXML-2](https://github.com/leethomason/tinyxml2)
 
 License :  public domain
 - [realpath Win32 implementation](https://sourceforge.net/p/mingw/patches/_discuss/thread/3e5aad79/cda5/attachment/realpath.c) Author By Nach M. S.

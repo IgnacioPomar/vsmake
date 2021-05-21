@@ -44,9 +44,9 @@ bool endsWith (const std::string& str, const std::string& suffix)
  * \param    [in/out]   filename
  * \param    [in/out]   dest
  */
-void setFilePath (const char * filename, std::string & dest)
+void setFilePath (const std::string & filename, std::string & dest)
 {
-	fs::path p = filename;
+	fs::path p (filename);
 	p = fs::canonical (p);
 	dest = p.parent_path ().string ();
 
@@ -58,8 +58,8 @@ void setFilePath (const char * filename, std::string & dest)
 }
 
 
-bool hasAbsolutePath (const char * filename)
+bool hasAbsolutePath (const std::string & filename)
 {
-	fs::path p = filename;
+	fs::path p (filename);
 	return p.is_absolute ();
 }

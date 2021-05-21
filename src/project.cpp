@@ -57,11 +57,14 @@ void Project::setProjectNameAndPath (const char * projectName, const char * proj
 	if (hasAbsolutePath (tmpProjectPath))
 	{
 		setFilePath (tmpProjectPath, this->pd->projectPath);
+		this->pd->projectFile = tmpProjectPath;
 	}
 	else
 	{
 		std::string tmpPath = (solutionPath == nullptr) ? "" : solutionPath;
 		tmpPath.append (tmpProjectPath);
+
+		this->pd->projectFile = tmpPath;
 		setFilePath (tmpPath.c_str (), this->pd->projectPath);
 	}
 }
@@ -69,7 +72,7 @@ void Project::setProjectNameAndPath (const char * projectName, const char * proj
 
 VsMakeErrorCode Project::loadProject ()
 {
-	return ProjectLoader::loadProject (this->pd->projectPath.c_str (), *this);
+	return ProjectLoader::loadProject (*this->pd);
 }
 
 

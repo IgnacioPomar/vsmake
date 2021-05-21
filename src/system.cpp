@@ -17,7 +17,7 @@
 
 #define BUFF_SIZE   256
 
-#ifdef WIN32
+#ifdef _WIN32
 #define OPEN_ATTRS	"rt"
 #else
 #define OPEN_ATTRS	"r"

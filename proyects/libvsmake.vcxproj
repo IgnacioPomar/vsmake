@@ -73,31 +73,31 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(PlatformShortName)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(ProjectName)\$(Configuration)\$(PlatformShortName)\</IntDir>
+    <IntDir>$(SolutionDir)bin\obj\$(ProjectName)\$(Configuration)\$(PlatformShortName)\</IntDir>
     <TargetName>$(ProjectName)d</TargetName>
-    <IncludePath>$(SolutionDir)include;$(SolutionDir)../vc/$(PlatformShortName)/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)include;$(SolutionDir)vendor;$(SolutionDir)../vc/$(PlatformShortName)/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)../vc/$(PlatformShortName)/lib;$(SolutionDir)bin/$(PlatformShortName)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(PlatformShortName)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(ProjectName)\$(Configuration)\$(PlatformShortName)\</IntDir>
+    <IntDir>$(SolutionDir)bin\obj\$(ProjectName)\$(Configuration)\$(PlatformShortName)\</IntDir>
     <TargetName>$(ProjectName)d</TargetName>
-    <IncludePath>$(SolutionDir)include;$(SolutionDir)../vc/$(PlatformShortName)/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)include;$(SolutionDir)vendor;$(SolutionDir)../vc/$(PlatformShortName)/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)../vc/$(PlatformShortName)/lib;$(SolutionDir)bin/$(PlatformShortName)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(PlatformShortName)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(ProjectName)\$(Configuration)\$(PlatformShortName)\</IntDir>
-    <IncludePath>$(SolutionDir)include;$(SolutionDir)../vc/$(PlatformShortName)/include;$(IncludePath)</IncludePath>
+    <IntDir>$(SolutionDir)bin\obj\$(ProjectName)\$(Configuration)\$(PlatformShortName)\</IntDir>
+    <IncludePath>$(SolutionDir)include;$(SolutionDir)vendor;$(SolutionDir)../vc/$(PlatformShortName)/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)../vc/$(PlatformShortName)/lib;$(SolutionDir)bin/$(PlatformShortName)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(PlatformShortName)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(ProjectName)\$(Configuration)\$(PlatformShortName)\</IntDir>
-    <IncludePath>$(SolutionDir)include;$(SolutionDir)../vc/$(PlatformShortName)/include;$(IncludePath)</IncludePath>
+    <IntDir>$(SolutionDir)bin\obj\$(ProjectName)\$(Configuration)\$(PlatformShortName)\</IntDir>
+    <IncludePath>$(SolutionDir)include;$(SolutionDir)vendor;$(SolutionDir)../vc/$(PlatformShortName)/include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)../vc/$(PlatformShortName)/lib;$(SolutionDir)bin/$(PlatformShortName)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -172,6 +172,7 @@
     <ClInclude Include="..\include\vsmake_cfg.h" />
     <ClInclude Include="..\include\vsmake_constants.h" />
     <ClInclude Include="..\include\vsmake_pragmalib.h" />
+    <ClInclude Include="..\vendor\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\dllmain.cpp" />
@@ -184,6 +185,8 @@
     <ClCompile Include="..\src\stackoverflowcode.cpp" />
     <ClCompile Include="..\src\system.cpp" />
     <ClCompile Include="..\src\utils.cpp" />
+    <ClCompile Include="..\vendor\tinyxml2.cpp" />
+    <ClCompile Include="project_privatedata.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

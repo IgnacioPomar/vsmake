@@ -52,7 +52,7 @@ VsMakeErrorCode Solution::loadSolution (const char * solutionFile)
  ***********************************************************************************************/
 int Solution::getNumberOfProjects ()
 {
-	return this->pd->projects.size ();
+	return (int)this->pd->projects.size ();
 }
 
 /***********************************************************************************************
@@ -62,7 +62,7 @@ int Solution::getNumberOfProjects ()
  ***********************************************************************************************/
 Project* Solution::getProject (int projectIdx)
 {
-	return &this->pd->projects [projectIdx];
+	return &this->pd->projects[projectIdx];
 }
 
 
